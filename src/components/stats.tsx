@@ -8,14 +8,14 @@ import { GradientText } from "@/components/effects/gradient-text";
 export default function Stats() {
   const stats = [
     {
-      value: "97%",
+      value: "∞",
       label: "Customer Satisfaction",
       description: "Across all platforms",
       icon: "⭐",
       color: "#52aaad",
     },
     {
-      value: "24/7",
+      value: "∞",
       label: "Support Response",
       description: "Available worldwide",
       icon: "🌎",
@@ -24,14 +24,14 @@ export default function Stats() {
     {
       value: "10x",
       label: "Faster Results",
-      description: "Than traditional methods",
+      description: "Than traditional methods (maybe)",
       icon: "⚡",
       color: "#ab5137",
     },
     {
-      value: "500+",
+      value: "0",
       label: "Enterprise Clients",
-      description: "Across all industries",
+      description: "Across all industries(till now)",
       icon: "🏢",
       color: "#52aaad",
     },
@@ -48,7 +48,7 @@ export default function Stats() {
             Delivering Real <GradientText text="Results" gradient="from-[#52aaad] to-[#c89d4a]" animate interactive />
           </h2>
           <p className="text-white/70 text-lg">
-            Our platform is designed to provide measurable outcomes that transform your business.
+            Our platform is designed to provide measurable outcomes that transform your business and also for job seekers.
           </p>
         </div>
 

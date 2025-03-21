@@ -18,7 +18,7 @@ export default function Footer() {
               <div className="h-8 w-8 rounded bg-[#52aaad]/20 border border-[#52aaad]/30 flex items-center justify-center mr-2">
                 <span className="text-[#52aaad] font-bold">B</span>
               </div>
-              <h3 className="text-xl font-bold text-white">BuildStation</h3>
+              <h3 className="text-xl font-bold text-white">BlockBlockJob</h3>
             </div>
             
             <p className="text-white/70 text-sm">
@@ -75,7 +75,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-white/10 px-4 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/50 text-sm">
-            © {currentYear} BuildStation. All rights reserved.
+            © {currentYear} BlockBlockJob. All rights reserved.
           </p>
           
           <div className="flex space-x-6">

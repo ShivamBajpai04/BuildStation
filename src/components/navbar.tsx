@@ -10,7 +10,7 @@ export default function Navbar() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2 md:gap-4">
           <Link href="/" className="font-bold text-xl md:text-2xl">
-            Job
+            BlockBlockJob
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link

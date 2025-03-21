@@ -1,4 +1,4 @@
-import SocialProof from "@/components/social-proof";
+import { SocialProof } from "@/components/social-proof";
 import Solution from "@/components/solution";
 import Stats from "@/components/stats";
 import Benefits from "@/components/benefits";
@@ -119,18 +119,7 @@ export default function Home() {
           </div>
         </EnhancedSection>
         
-        {/* Integrations with visual contrast - gold particles and cyan grain */}
-        <EnhancedSection 
-          className="py-16 md:py-24"
-          withParticles={true}
-          particleColor="rgba(200, 157, 74, 0.3)"
-          lineColor="rgba(82, 170, 173, 0.15)"
-          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#c89d4a]/5 to-[#121116]/0"
-          grainColor="rgba(82, 170, 173, 0.02)" // Cyan tint to grain
-          grainOpacity={0.1}
-        >
 
-        </EnhancedSection>
         
         {/* Testimonials with enhanced focus - teal tinted grain */}
         <EnhancedSection 
