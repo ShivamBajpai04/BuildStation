@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { WebhookEvent, UserJSON } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 
-export const maxDuration = 50; // Set max duration to 10 seconds
+export const maxDuration = 10; // Set max duration to 10 seconds
 
 export async function POST(req: Request) {
   try {
@@ -51,44 +51,64 @@ export async function POST(req: Request) {
 
     // Process the webhook event
     switch (eventType) {
-      case "user.created":
+      case "user.created": {
         const primaryEmail = email_addresses?.[0]?.email_address;
         if (!primaryEmail) {
           return new Response("No email address found", { status: 400 });
         }
 
-        await prisma.user.create({
-          data: {
-            clerk_id: id,
-            email: primaryEmail,
-            user_name: username || null,
-            wallet_address: web3_wallets?.[0]?.web3_wallet || "",
-          },
-        });
+        try {
+          await prisma.user.create({
+            data: {
+              clerk_id: id,
+              email: primaryEmail,
+              user_name: username || null,
+              wallet_address: web3_wallets?.[0]?.web3_wallet || "",
+            },
+          });
+        } catch (error) {
+          console.error("Error creating user:", error);
+          return new Response("Error creating user", { status: 500 });
+        }
         break;
+      }
 
-      case "user.updated":
+      case "user.updated": {
         const updatedEmail = email_addresses?.[0]?.email_address;
         if (!updatedEmail) {
           return new Response("No email address found", { status: 400 });
         }
 
-        await prisma.user.update({
-          where: { clerk_id: id },
-          data: {
-            email: updatedEmail,
-            user_name: username || null,
-            wallet_address: web3_wallets?.[0]?.web3_wallet || "",
-          },
-        });
+        try {
+          await prisma.user.update({
+            where: { clerk_id: id },
+            data: {
+              email: updatedEmail,
+              user_name: username || null,
+              wallet_address: web3_wallets?.[0]?.web3_wallet || "",
+            },
+          });
+        } catch (error) {
+          console.error("Error updating user:", error);
+          return new Response("Error updating user", { status: 500 });
+        }
         break;
+      }
 
-      case "user.deleted":
-        await prisma.user.delete({
-          where: { clerk_id: id },
-        });
-
+      case "user.deleted": {
+        const deletedEmail = email_addresses?.[0]?.email_address;
+        if (deletedEmail) {
+          try {
+            await prisma.user.delete({
+              where: { clerk_id: id },
+            });
+          } catch (error) {
+            console.error("Error deleting user:", error);
+            return new Response("Error deleting user", { status: 500 });
+          }
+        }
         break;
+      }
     }
 
     return new Response("Webhook processed successfully", { status: 200 });
