@@ -2,8 +2,9 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent, UserJSON } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
-export const maxDuration = 60; // Set max duration to 10 seconds
+export const maxDuration = 10; // Set max duration to 10 seconds
 
 export async function POST(req: Request) {
   try {
@@ -58,6 +59,9 @@ export async function POST(req: Request) {
         }
 
         try {
+          // Test database connection
+          await prisma.$connect();
+
           await prisma.user.create({
             data: {
               clerk_id: id,
@@ -68,7 +72,16 @@ export async function POST(req: Request) {
           });
         } catch (error) {
           console.error("Error creating user:", error);
+          // Check if it's a connection error
+          if (
+            error instanceof PrismaClientKnownRequestError &&
+            error.code === "P2010"
+          ) {
+            return new Response("Database connection error", { status: 503 });
+          }
           return new Response("Error creating user", { status: 500 });
+        } finally {
+          await prisma.$disconnect();
         }
         break;
       }
@@ -80,6 +93,7 @@ export async function POST(req: Request) {
         }
 
         try {
+          await prisma.$connect();
           await prisma.user.update({
             where: { clerk_id: id },
             data: {
@@ -90,22 +104,36 @@ export async function POST(req: Request) {
           });
         } catch (error) {
           console.error("Error updating user:", error);
+          if (
+            error instanceof PrismaClientKnownRequestError &&
+            error.code === "P2010"
+          ) {
+            return new Response("Database connection error", { status: 503 });
+          }
           return new Response("Error updating user", { status: 500 });
+        } finally {
+          await prisma.$disconnect();
         }
         break;
       }
 
       case "user.deleted": {
-        const deletedEmail = email_addresses?.[0]?.email_address;
-        if (deletedEmail) {
-          try {
-            await prisma.user.delete({
-              where: { clerk_id: id },
-            });
-          } catch (error) {
-            console.error("Error deleting user:", error);
-            return new Response("Error deleting user", { status: 500 });
+        try {
+          await prisma.$connect();
+          await prisma.user.delete({
+            where: { clerk_id: id },
+          });
+        } catch (error) {
+          console.error("Error deleting user:", error);
+          if (
+            error instanceof PrismaClientKnownRequestError &&
+            error.code === "P2010"
+          ) {
+            return new Response("Database connection error", { status: 503 });
           }
+          return new Response("Error deleting user", { status: 500 });
+        } finally {
+          await prisma.$disconnect();
         }
         break;
       }
