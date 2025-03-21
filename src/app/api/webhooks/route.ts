@@ -1,6 +1,6 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { WebhookEvent } from "@clerk/nextjs/server";
+import { WebhookEvent, UserJSON } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
@@ -48,16 +48,55 @@ export async function POST(req: Request) {
     });
   }
 
-  if ((payload.type = "user.created")) {
-    const newUser = await prisma.user.create({
-      data: { wallet_address: "abcd", user_name: "shivam", email: "hi@hi.com" },
-    });
-    console.log(newUser);
-  }
-  const { id } = evt.data;
   const eventType = evt.type;
-  console.log(`Received webhook with ID ${id} and event type of ${eventType}`);
-  console.log("Webhook payload:", evt);
+  const data = evt.data as UserJSON;
+  const { email_addresses, username, web3_wallets } = data;
 
-  return new Response("Webhook received", { status: 200 });
+  try {
+    switch (eventType) {
+      case "user.created":
+        const primaryEmail = email_addresses?.[0]?.email_address;
+
+        if (!primaryEmail) {
+          throw new Error("No email address found for user");
+        }
+
+        await prisma.user.create({
+          data: {
+            email: primaryEmail,
+            user_name: username || null,
+            wallet_address: web3_wallets[0].web3_wallet,
+          },
+        });
+        break;
+
+      case "user.updated":
+        const updatedEmail = email_addresses?.[0]?.email_address;
+
+        if (!updatedEmail) {
+          throw new Error("No email address found for user");
+        }
+
+        await prisma.user.update({
+          where: { email: updatedEmail },
+          data: {
+            email: updatedEmail,
+            user_name: username || null,
+            wallet_address: web3_wallets[0].web3_wallet,
+          },
+        });
+        break;
+
+      case "user.deleted":
+        await prisma.user.delete({
+          where: { email: email_addresses?.[0]?.email_address },
+        });
+        break;
+    }
+
+    return new Response("Webhook processed successfully", { status: 200 });
+  } catch (error) {
+    console.error("Error processing webhook:", error);
+    return new Response("Error processing webhook", { status: 500 });
+  }
 }
