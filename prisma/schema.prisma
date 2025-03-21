@@ -13,10 +13,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  user_name String?
-  email String @unique
-  wallet_address String @unique
+model User {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  clerk_id       String  @unique
+  user_name      String?
+  email          String  @unique
+  wallet_address String  @unique
 }
-
