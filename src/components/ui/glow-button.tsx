@@ -2,16 +2,17 @@
 
 import React, { ButtonHTMLAttributes, useState } from "react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 
-interface GlowButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type GlowButtonProps = Omit<HTMLMotionProps<"button">, keyof ButtonHTMLAttributes<HTMLButtonElement>> & {
   variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
   glowColor?: string;
   className?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-}
+  children?: React.ReactNode;
+};
 
 const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
   (

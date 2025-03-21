@@ -26,12 +26,13 @@ export default function AnimatedSection({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const currentRef = sectionRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          if (triggerOnce && sectionRef.current) {
-            observer.unobserve(sectionRef.current);
+          if (triggerOnce && currentRef) {
+            observer.unobserve(currentRef);
           }
         } else if (!triggerOnce) {
           setIsVisible(false);
@@ -43,13 +44,13 @@ export default function AnimatedSection({
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [triggerOnce, threshold]);
