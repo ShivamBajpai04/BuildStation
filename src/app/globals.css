@@ -71,25 +71,25 @@
   }
 
   .dark {
-    --background: hsl(0, 0%, 0%);
-    --foreground: hsl(0, 0%, 100%);
-    --card: hsl(0, 0%, 0%);
-    --card-foreground: hsl(0, 0%, 100%);
-    --popover: hsl(0, 0%, 0%);
-    --popover-foreground: hsl(0, 0%, 100%);
-    --primary: hsl(187, 50%, 54%);
-    --primary-foreground: hsl(0, 0%, 0%);
-    --secondary: hsl(352, 50%, 72%);
-    --secondary-foreground: hsl(0, 0%, 100%);
-    --muted: hsl(0, 0%, 15%);
-    --muted-foreground: hsl(0, 0%, 65%);
-    --accent: hsl(46, 50%, 64%);
-    --accent-foreground: hsl(0, 0%, 100%);
-    --destructive: hsl(0, 84%, 60%);
-    --destructive-foreground: hsl(0, 0%, 100%);
-    --border: hsl(0, 0%, 15%);
-    --input: hsl(0, 0%, 15%);
-    --ring: hsl(187, 50%, 54%);
+    --background: hsl(0, 0%, 0%);        /* Pure black background */
+    --foreground: hsl(0, 0%, 98%);       /* Off-white text for better readability */
+    --card: hsl(0, 0%, 3%);              /* Very dark card background (darker) */
+    --card-foreground: hsl(0, 0%, 98%);  /* Same off-white text */
+    --popover: hsl(0, 0%, 0%);           /* Pure black popover */
+    --popover-foreground: hsl(0, 0%, 98%); /* Same off-white text */
+    --primary: hsl(210, 100%, 60%);      /* Much bluer primary color */
+    --primary-foreground: hsl(0, 0%, 0%); /* Pure black text on primary */
+    --secondary: hsl(352, 80%, 75%);     /* Slightly brighter secondary */
+    --secondary-foreground: hsl(0, 0%, 0%); /* Pure black text on secondary */
+    --muted: hsl(0, 0%, 5%);             /* Very dark but not pure black for muted areas */
+    --muted-foreground: hsl(0, 0%, 70%); /* Slightly brighter text for muted areas */
+    --accent: hsl(46, 90%, 65%);         /* Brighter accent color */
+    --accent-foreground: hsl(0, 0%, 0%); /* Pure black text on accent */
+    --destructive: hsl(0, 100%, 60%);    /* Brighter destructive for better visibility */
+    --destructive-foreground: hsl(0, 0%, 98%); /* Off-white text on destructive */
+    --border: hsl(0, 0%, 8%);            /* Very dark borders but not pure black */
+    --input: hsl(0, 0%, 8%);             /* Very dark input fields */
+    --ring: hsl(210, 100%, 60%);         /* Match primary for consistency */
   }
 
   * {
@@ -104,5 +104,55 @@
 
   .container {
     @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+}
+
+@layer utilities {
+  .bg-grid-pattern {
+    background-size: 100px 100px;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease forwards;
+  }
+  
+  .animate-pulse-subtle {
+    animation: pulseSlow 3s infinite;
+  }
+  
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary-foreground)));
+  }
+  
+  .border-gradient {
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(to right, hsl(var(--primary)), transparent) 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
   }
 }

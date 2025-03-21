@@ -1,65 +1,122 @@
-import { Shield, Clock, Target, TrendingUp } from "lucide-react";
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
 
 export default function Benefits() {
   const benefits = [
     {
-      title: "Save Time",
-      description: "Reduce manual work by 80% with our automation tools",
-      icon: Clock,
-      color: "text-blue-500 bg-blue-100",
+      title: "NFT Rewards",
+      description: "Earn valuable NFTs for being the first to post about a job opening.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"></path>
+        </svg>
+      )
     },
     {
-      title: "Increase Accuracy",
-      description: "Eliminate human error with AI-powered verification",
-      icon: Target,
-      color: "text-green-500 bg-green-100",
+      title: "Time Saving",
+      description: "No more sifting through duplicate job listings - every posting is unique.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      )
     },
     {
-      title: "Boost Productivity",
-      description: "Complete more tasks in less time with smart workflows",
-      icon: TrendingUp,
-      color: "text-purple-500 bg-purple-100",
+      title: "Company Verification",
+      description: "Easily identify verified companies with official postings.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      )
     },
     {
-      title: "Reduce Costs",
-      description: "Lower operational expenses by automating routine tasks",
-      icon: Shield,
-      color: "text-orange-500 bg-orange-100",
-    },
+      title: "Smart Matching",
+      description: "Our algorithm matches your skills with the most relevant job opportunities.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="8.5" cy="7" r="4"></circle>
+          <polyline points="17 11 19 13 23 9"></polyline>
+        </svg>
+      )
+    }
   ];
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   return (
-    <section className="py-12 md:py-16 lg:py-20">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            Benefits
-          </h2>
-          <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-[800px]">
-            Features tell, but benefits sell. Here&apos;s how our solution
-            transforms your business.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 lg:gap-8">
-          {benefits.map((benefit, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center space-y-3 rounded-lg border bg-card p-6 text-center transition-shadow hover:shadow-md"
+    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-black relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-blue-500/5 rounded-full filter blur-3xl"></div>
+      
+      <div className="container px-4 md:px-6 relative z-10">
+        <motion.div 
+          className="flex flex-col items-center justify-center space-y-4 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="space-y-2 max-w-[800px]">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
             >
-              <div
-                className={`flex h-12 w-12 items-center justify-center rounded-full ${benefit.color}`}
-              >
-                <benefit.icon className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-semibold sm:text-xl">
-                {benefit.title}
-              </h3>
-              <p className="text-sm text-muted-foreground sm:text-base">
-                {benefit.description}
+              <span className="inline-block px-3 py-1 text-sm font-medium text-primary bg-primary/10 rounded-full mb-2">
+                Benefits
+              </span>
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+                Benefits for All Users
+              </h2>
+              <p className="max-w-[600px] mx-auto text-gray-500 md:text-xl dark:text-gray-400 mt-4">
+                Our platform offers unique advantages for both job seekers and companies
               </p>
-            </div>
-          ))}
-        </div>
+            </motion.div>
+          </div>
+          
+          <motion.div 
+            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 md:gap-12 w-full mt-8"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            {benefits.map((benefit) => (
+              <motion.div 
+                key={benefit.title} 
+                className="flex flex-col items-center space-y-4 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-200"
+                variants={item}
+              >
+                <div className="p-3 bg-primary/10 rounded-full">
+                  {benefit.icon}
+                </div>
+                <h3 className="text-xl font-bold">{benefit.title}</h3>
+                <p className="text-gray-500 dark:text-gray-400 text-center">{benefit.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

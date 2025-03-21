@@ -1,21 +1,33 @@
-import { Button } from "@/components/ui/button"
+"use client";
+
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function CTV() {
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-muted/50">
-      <div className="container px-4 md:px-6">
-        <div className="mx-auto max-w-3xl rounded-lg bg-yellow-50 p-8 text-center shadow-lg">
-          <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">Call-To-Value (CTV)</h2>
-          <p className="mb-6 text-muted-foreground md:text-xl">
-            Combine actionable steps with compelling reasons to convert. Start your 7-day free trial today and see how
-            our AI can transform your workflow.
+    <section className="relative overflow-hidden py-24 bg-gradient-to-br from-primary/10 to-primary/5 dark:from-black dark:to-black border-t border-b border-primary/10 dark:border-border">
+      <div className="container">
+        <div className="relative z-10 mx-auto flex max-w-[58rem] flex-col items-center justify-center text-center">
+          <h2 className="font-heading text-3xl leading-[1.1] md:text-5xl">
+            Ready to revolutionize your workflow?
+          </h2>
+          <p className="max-w-[600px] md:text-xl mt-4 text-muted-foreground dark:text-gray-400">
+            Join thousands of users finding their dream jobs and earning NFTs for job postings
           </p>
-          <Button size="lg" className="px-8">
-            Start Your Free Trial
-          </Button>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <Button size="lg" className="px-8 bg-primary hover:bg-primary/90">
+              Start Your Free Trial
+            </Button>
+            <Link
+              href="/learn-more"
+              className="inline-flex h-10 items-center justify-center rounded-md border border-primary bg-transparent px-8 text-sm font-medium text-primary shadow-sm transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 dark:border-white dark:text-white dark:hover:bg-white/20"
+            >
+              Learn More
+            </Link>
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 

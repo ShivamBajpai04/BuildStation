@@ -1,63 +1,60 @@
-import { Star } from "lucide-react"
+import React from "react";
+import Image from "next/image";
 
 export default function Testimonials() {
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "Marketing Director",
-      content: "This platform has transformed our workflow. We've saved 15 hours per week on repetitive tasks.",
-      rating: 5,
+      quote: "I found my dream job within a week of using this platform. The NFT I earned was a nice bonus too!",
+      author: "Sarah Johnson",
+      role: "Software Developer",
+      avatar: "/avatars/sarah.jpg"
     },
     {
-      name: "Michael Chen",
-      role: "Product Manager",
-      content: "The automation capabilities are incredible. Our team productivity increased by 40% in just one month.",
-      rating: 5,
+      quote: "As a recruiter, this platform has saved me countless hours by eliminating duplicate job postings.",
+      author: "David Chen",
+      role: "HR Manager at TechCorp",
+      avatar: "/avatars/david.jpg"
     },
     {
-      name: "Emily Rodriguez",
-      role: "Operations Lead",
-      content: "Customer support is exceptional. Any questions we had were answered promptly and thoroughly.",
-      rating: 5,
-    },
-  ]
+      quote: "The verification system gives me confidence that I'm applying to legitimate job openings.",
+      author: "Michael Smith",
+      role: "UX Designer",
+      avatar: "/avatars/michael.jpg"
+    }
+  ];
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-muted/50">
+    <section className="w-full py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Testimonials</h2>
-          <p className="text-muted-foreground md:text-xl max-w-[800px]">
-            Highlight authentic stories with customer photos and measurable results.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {testimonials.map((testimonial, i) => (
-            <div key={i} className="flex flex-col space-y-4 rounded-lg border bg-card p-6 shadow">
-              <div className="flex items-center space-x-4">
-                <div className="h-10 w-10 rounded-full bg-rose-100">
-                  <div className="flex h-full w-full items-center justify-center text-rose-500 font-medium">
-                    {testimonial.name.charAt(0)}
+        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+              What Our Users Say
+            </h2>
+            <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+              Hear from job seekers and companies who use our platform
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {testimonials.map((testimonial) => (
+              <div key={testimonial.author} className="flex flex-col items-center space-y-4 rounded-lg border p-6">
+                <div className="text-xl">"</div>
+                <p className="text-gray-500 dark:text-gray-400">{testimonial.quote}</p>
+                <div className="flex flex-col items-center space-y-2">
+                  <div className="relative h-12 w-12 rounded-full bg-gray-200">
+                    {/* <Image src={testimonial.avatar} alt={testimonial.author} fill className="rounded-full" /> */}
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium">{testimonial.author}</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
-                <div>
-                  <h3 className="text-sm font-medium">{testimonial.name}</h3>
-                  <p className="text-xs text-muted-foreground">{testimonial.role}</p>
-                </div>
               </div>
-              <div className="flex">
-                {Array(testimonial.rating)
-                  .fill(null)
-                  .map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-current text-yellow-400" />
-                  ))}
-              </div>
-              <p className="text-muted-foreground">{testimonial.content}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 

@@ -1,45 +1,55 @@
+import React from "react";
+
 export default function HowItWorks() {
   const steps = [
     {
-      title: "Step 1: Sign Up",
-      description: "Create your account in less than 2 minutes",
+      number: 1,
+      title: "Create an Account",
+      description: "Sign up for a free account to start exploring or posting job opportunities."
     },
     {
-      title: "Step 2: Connect",
-      description: "Integrate with your existing tools and workflows",
+      number: 2,
+      title: "Post or Search",
+      description: "Post a job opening or search for jobs using our powerful filtering system."
     },
     {
-      title: "Step 3: Automate",
-      description: "Set up your first automation and watch it work",
+      number: 3,
+      title: "Earn NFTs",
+      description: "Be the first to post about a job opening and earn a unique NFT as a reward."
     },
-  ]
+    {
+      number: 4,
+      title: "Connect and Apply",
+      description: "Apply directly to job postings or connect with companies who posted openings."
+    }
+  ];
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-muted/50">
+    <section className="w-full py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">How it works?</h2>
-          <p className="text-muted-foreground md:text-xl max-w-[800px]">
-            Simplify the process into 3 easy steps. This will improve understanding.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {steps.map((step, i) => (
-            <div key={i} className="flex flex-col space-y-2">
-              <div className="flex items-center space-x-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
-                  <span className="text-sm font-medium">{i + 1}</span>
+        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+              How Our Platform Works
+            </h2>
+            <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+              A simple process to find or post job opportunities and earn rewards
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 md:gap-12">
+            {steps.map((step) => (
+              <div key={step.number} className="flex flex-col items-center space-y-2">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white">
+                  {step.number}
                 </div>
                 <h3 className="text-xl font-bold">{step.title}</h3>
+                <p className="text-gray-500 dark:text-gray-400">{step.description}</p>
               </div>
-              <div className="ml-10">
-                <p className="text-muted-foreground">{step.description}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
