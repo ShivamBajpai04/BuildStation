@@ -101,7 +101,7 @@ export default function Features() {
             whileInView="show"
             viewport={{ once: true }}
           >
-            {features.map((feature, index) => (
+            {features.map((feature) => (
               <motion.div 
                 key={feature.title} 
                 className="flex flex-col items-center space-y-4 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-200"

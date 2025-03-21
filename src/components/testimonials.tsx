@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+// import Image from "next/image";
 
 export default function Testimonials() {
   const testimonials = [
@@ -38,7 +38,7 @@ export default function Testimonials() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {testimonials.map((testimonial) => (
               <div key={testimonial.author} className="flex flex-col items-center space-y-4 rounded-lg border p-6">
-                <div className="text-xl">"</div>
+                <div className="text-xl">&quot;</div>
                 <p className="text-gray-500 dark:text-gray-400">{testimonial.quote}</p>
                 <div className="flex flex-col items-center space-y-2">
                   <div className="relative h-12 w-12 rounded-full bg-gray-200">

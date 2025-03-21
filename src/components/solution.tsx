@@ -33,7 +33,7 @@ export default function Solution() {
             <div className="space-y-2">
               <h3 className="text-xl font-bold">Our Solution</h3>
               <p className="max-w-[600px] text-gray-500 md:text-lg dark:text-gray-400">
-                We've created a platform that ensures job postings are unique and up-to-date, eliminating redundancy and saving time for both job seekers and companies. Plus, we incentivize early job posting with NFT rewards.
+                We&apos;ve created a platform that ensures job postings are unique and up-to-date, eliminating redundancy and saving time for both job seekers and companies. Plus, we incentivize early job posting with NFT rewards.
               </p>
               <ul className="space-y-2 mt-4">
                 <li className="flex items-center space-x-3">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { ReactNode, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 export default function Stats() {
@@ -54,7 +54,7 @@ export default function Stats() {
   );
 }
 
-function StatCounter({ value, label, icon, delay = 0 }) {
+function StatCounter({ value, label, icon, delay = 0 }:{value:string,label:string,icon:ReactNode,delay:number}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 

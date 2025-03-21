@@ -1,6 +1,6 @@
-import HeroSection from "@/components/hero-section";
+// import HeroSection from "@/components/hero-section";
 import SocialProof from "@/components/social-proof";
-import Features from "@/components/features";
+// import Features from "@/components/features";
 import Solution from "@/components/solution";
 import Stats from "@/components/stats";
 import Benefits from "@/components/benefits";
