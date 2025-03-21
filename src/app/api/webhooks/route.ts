@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { WebhookEvent, UserJSON } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 
-export const maxDuration = 10; // Set max duration to 10 seconds
+export const maxDuration = 60; // Set max duration to 10 seconds
 
 export async function POST(req: Request) {
   try {
