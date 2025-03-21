@@ -234,8 +234,8 @@ export default function TeamPage() {
               Our Team
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto">
-              We&apos;re not just building AI—we&apos;re building the future of
-              work. Meet the diverse team of experts making it happen.
+              We&apos;re not just building AI—we&apos;re building the future of work. Meet
+              the diverse team of experts making it happen.
             </p>
             <motion.div
               initial={{ opacity: 0 }}
@@ -293,41 +293,41 @@ export default function TeamPage() {
           </div>
 
           {/* Hexagonal Grid */}
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-16"
-            id="team-grid"
-          >
+          <div className="flex flex-wrap justify-center gap-8 mb-20">
             {teamMembers.map((member, index) => (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * index, duration: 0.5 }}
                 key={member.name}
-                className="relative group"
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-                onClick={() => setSelectedMember(member)}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="relative"
+                style={{ marginTop: index % 2 === 0 ? "0" : "60px" }}
               >
-                <div className="relative aspect-square overflow-hidden rounded-xl border bg-background shadow-sm transition-all hover:shadow-md">
+                <div
+                  className="relative w-64 h-72 cursor-pointer"
+                  onMouseEnter={() => setIsHovering(true)}
+                  onMouseLeave={() => setIsHovering(false)}
+                  onClick={() => setSelectedMember(member)}
+                >
                   <div
-                    className={`absolute inset-0 bg-gradient-to-br ${member.color} opacity-10 group-hover:opacity-20 transition-opacity`}
+                    className={`absolute inset-0 bg-gradient-to-br ${member.color} rounded-2xl transform rotate-45 opacity-20`}
                   ></div>
-                  <div className="absolute inset-0 flex flex-col justify-between p-6">
-                    <div className="text-3xl">{member.emoji}</div>
-                    <div>
-                      <h3 className="text-xl font-semibold">{member.name}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {member.role}
-                      </p>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                    <div className="relative w-24 h-24 mb-4 rounded-full overflow-hidden border-4 border-background">
+                      <Image
+                        src={member.image || "/placeholder.svg"}
+                        alt={member.name}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
+                    <h3 className="text-xl font-bold">{member.name}</h3>
+                    <p className="text-primary font-medium text-sm">
+                      {member.role}
+                    </p>
+                    <div className="mt-2 text-3xl">{member.emoji}</div>
                   </div>
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    width={400}
-                    height={400}
-                    className="h-full w-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-300"
-                  />
                 </div>
               </motion.div>
             ))}
@@ -426,9 +426,9 @@ export default function TeamPage() {
               </div>
               <h3 className="text-2xl font-bold mb-4">Ethical AI</h3>
               <p className="text-muted-foreground">
-                We&apos;re committed to developing AI responsibly, with
-                transparency and fairness at the core of everything we do. We
-                consider the societal impact of our technology.
+                We&apos;re committed to developing AI responsibly, with transparency
+                and fairness at the core of everything we do. We consider the
+                societal impact of our technology.
               </p>
             </motion.div>
           </div>
