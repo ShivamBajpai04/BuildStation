@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { WebhookEvent, UserJSON } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 
-export const maxDuration = 10; // Set max duration to 10 seconds
+export const maxDuration = 50; // Set max duration to 10 seconds
 
 export async function POST(req: Request) {
   try {
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
 
     const eventType = evt.type;
     const data = evt.data as UserJSON;
-    const { email_addresses, username, web3_wallets } = data;
+    const { id, email_addresses, username, web3_wallets } = data;
 
     // Process the webhook event
     switch (eventType) {
@@ -59,6 +59,7 @@ export async function POST(req: Request) {
 
         await prisma.user.create({
           data: {
+            clerk_id: id,
             email: primaryEmail,
             user_name: username || null,
             wallet_address: web3_wallets?.[0]?.web3_wallet || "",
@@ -73,7 +74,7 @@ export async function POST(req: Request) {
         }
 
         await prisma.user.update({
-          where: { email: updatedEmail },
+          where: { clerk_id: id },
           data: {
             email: updatedEmail,
             user_name: username || null,
@@ -83,12 +84,10 @@ export async function POST(req: Request) {
         break;
 
       case "user.deleted":
-        const deletedEmail = email_addresses?.[0]?.email_address;
-        if (deletedEmail) {
-          await prisma.user.delete({
-            where: { email: deletedEmail },
-          });
-        }
+        await prisma.user.delete({
+          where: { clerk_id: id },
+        });
+
         break;
     }
 
