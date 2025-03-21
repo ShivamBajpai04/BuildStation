@@ -1,84 +1,90 @@
 "use client";
 
-import React, { ReactNode, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { StaggerChildren } from "@/components/effects/animated-components";
+import { motion } from "framer-motion";
+import { InteractiveCard } from "@/components/effects/interactive-card";
+import { GradientText } from "@/components/effects/gradient-text";
 
 export default function Stats() {
   const stats = [
-    { value: "10K+", label: "Job Listings", icon: "📝" },
-    { value: "5K+", label: "NFTs Minted", icon: "🏆" },
-    { value: "1K+", label: "Companies", icon: "🏢" },
-    { value: "50K+", label: "Job Seekers", icon: "👥" }
+    {
+      value: "97%",
+      label: "Customer Satisfaction",
+      description: "Across all platforms",
+      icon: "⭐",
+      color: "#52aaad",
+    },
+    {
+      value: "24/7",
+      label: "Support Response",
+      description: "Available worldwide",
+      icon: "🌎",
+      color: "#c89d4a",
+    },
+    {
+      value: "10x",
+      label: "Faster Results",
+      description: "Than traditional methods",
+      icon: "⚡",
+      color: "#ab5137",
+    },
+    {
+      value: "500+",
+      label: "Enterprise Clients",
+      description: "Across all industries",
+      icon: "🏢",
+      color: "#52aaad",
+    },
   ];
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 relative">
-      {/* Background decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[url('/images/grid-pattern.svg')] bg-repeat opacity-5"></div>
-      
-      <div className="container px-4 md:px-6 relative z-10">
-        <motion.div 
-          className="flex flex-col items-center justify-center space-y-8 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="space-y-2 max-w-[800px]">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <span className="inline-block px-3 py-1 text-sm font-medium text-primary bg-primary/10 rounded-full mb-2">
-                Our Impact
-              </span>
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
-                Our Platform Impact
-              </h2>
-              <p className="max-w-[600px] mx-auto text-gray-500 md:text-xl dark:text-gray-400 mt-4">
-                Join thousands of users who have found their dream jobs and companies that have hired top talent through our platform
-              </p>
-            </motion.div>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12 w-full mt-8">
-            {stats.map((stat, index) => (
-              <StatCounter key={stat.label} value={stat.value} label={stat.label} icon={stat.icon} delay={index * 0.1} />
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function StatCounter({ value, label, icon, delay = 0 }:{value:string,label:string,icon:ReactNode,delay:number}) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <motion.div 
-      ref={ref}
-      className="flex flex-col items-center justify-center space-y-2 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700"
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.7, delay }}
-    >
-      <div className="text-4xl mb-2">{icon}</div>
-      <motion.div 
-        className="text-4xl font-bold text-primary"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-        transition={{ duration: 0.5, delay: delay + 0.3 }}
+    <div className="py-12">
+      <StaggerChildren
+        className="text-center space-y-12"
+        delayChildren={0.2}
       >
-        {value}
-      </motion.div>
-      <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
-        {label}
-      </div>
-    </motion.div>
+        <div className="space-y-4 max-w-3xl mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white">
+            Delivering Real <GradientText text="Results" gradient="from-[#52aaad] to-[#c89d4a]" animate interactive />
+          </h2>
+          <p className="text-white/70 text-lg">
+            Our platform is designed to provide measurable outcomes that transform your business.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
+          {stats.map((stat, index) => (
+            <InteractiveCard
+              key={index}
+              className="rounded-xl p-6 bg-[#0c0c10]/60 backdrop-blur-sm"
+              glowColor={`${stat.color}30`}
+              grainOpacity={0}
+              
+              border={false} // Disable the default border
+              shadow
+              rotationIntensity={5}
+              backgroundGradient={`bg-gradient-to-br from-[${stat.color}]/5 to-transparent`}
+            >
+              <div className="flex flex-col items-center text-center space-y-3">
+                <div 
+                  className="w-12 h-12 rounded-full flex items-center justify-center text-xl mb-2"
+                  style={{ 
+                    backgroundColor: `${stat.color}15`,
+                    boxShadow: `0 0 20px ${stat.color}20`,
+                    border: `1px solid ${stat.color}30`
+                  }}
+                >
+                  {stat.icon}
+                </div>
+                <div className="text-3xl md:text-4xl font-bold text-white">{stat.value}</div>
+                <div className="font-medium text-white/90">{stat.label}</div>
+                <p className="text-sm text-white/70">{stat.description}</p>
+              </div>
+            </InteractiveCard>
+          ))}
+        </div>
+      </StaggerChildren>
+    </div>
   );
 }
 

@@ -569,7 +569,6 @@ interface InteractiveCardProps extends React.HTMLAttributes<HTMLDivElement> {
   hoverScale?: number;
   border?: boolean;
   glowOnHover?: boolean;
-  disableGrain?: boolean;
 }
 
 function InteractiveCard({
@@ -583,7 +582,6 @@ function InteractiveCard({
   hoverScale = 1.02,
   border = true,
   glowOnHover = true,
-  disableGrain = false,
   ...props
 }: InteractiveCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -701,7 +699,7 @@ function InteractiveCard({
         )}
 
         {/* Grain texture */}
-        {!disableGrain && <GrainyTexture opacity={grainOpacity} blend="soft-light" />}
+        <GrainyTexture opacity={grainOpacity} blend="soft-light" />
 
         {/* Light reflection effect */}
         {isHovered && glowOnHover && (
@@ -1152,7 +1150,6 @@ export function StandaloneHeroSection() {
                   shadow
                   rotationIntensity={5}
                   glowColor="rgba(82, 170, 173, 0.3)"
-                  disableGrain={true}
                 >
                   {/* Pixelbuddha-inspired grid and mockup display */}
                   <div

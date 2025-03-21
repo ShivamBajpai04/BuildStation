@@ -1,40 +1,51 @@
-import React from "react";
-// import Image from "next/image";
+"use client";
+
+import { StaggerChildren } from "@/components/effects/animated-components";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function SocialProof() {
-  const companies = [
-    { name: "Google", logo: "/logos/google.svg" },
-    { name: "Microsoft", logo: "/logos/microsoft.svg" },
-    { name: "Amazon", logo: "/logos/amazon.svg" },
-    { name: "Apple", logo: "/logos/apple.svg" },
-    { name: "Meta", logo: "/logos/meta.svg" },
+  const brands = [
+    { name: "CompanyOne", logo: "/logos/logo1.svg" },
+    { name: "CompanyTwo", logo: "/logos/logo2.svg" },
+    { name: "CompanyThree", logo: "/logos/logo3.svg" },
+    { name: "CompanyFour", logo: "/logos/logo4.svg" },
+    { name: "CompanyFive", logo: "/logos/logo5.svg" },
+    { name: "CompanySix", logo: "/logos/logo6.svg" },
   ];
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-black">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="space-y-2">
-            <h2 className="text-2xl font-bold tracking-tighter md:text-3xl">
-              Trusted by Top Companies
-            </h2>
-            <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-              Join thousands of companies and job seekers who use our platform daily
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            {companies.map((company) => (
-              <div key={company.name} className="flex items-center justify-center">
-                <div className="h-12 w-auto grayscale transition-all hover:grayscale-0">
-                  {company.name}
-                  {/* Uncomment when you have actual logos */}
-                  {/* <Image src={company.logo} alt={company.name} width={120} height={48} /> */}
-                </div>
+    <div className="py-8 relative">
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#52aaad]/5 to-transparent opacity-60" />
+      
+      <StaggerChildren
+        className="text-center space-y-8"
+        delayChildren={0.1}
+        staggerChildren={0.05}
+        direction="up"
+      >
+        <h2 className="text-xl md:text-2xl font-medium text-white/80">
+          Trusted by innovative companies worldwide
+        </h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
+          {brands.map((brand, index) => (
+            <div 
+              key={index}
+              className="w-32 h-12 relative grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+            >
+              <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-md flex items-center justify-center px-4">
+                {/*
+                  Note: These are placeholder logos. 
+                  In a real implementation, you would use actual logo images with proper paths.
+                */}
+                <div className="text-white/70 font-medium">{brand.name}</div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </div>
-    </section>
+      </StaggerChildren>
+    </div>
   );
 }

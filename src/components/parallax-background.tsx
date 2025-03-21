@@ -1,37 +1,62 @@
 "use client";
 
-import { useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-interface ParallaxBackgroundProps {
+interface ParallaxBackgroundProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
   className?: string;
   intensity?: number;
-  children?: React.ReactNode;
+  reverse?: boolean;
+  containerClassName?: string;
 }
 
 export default function ParallaxBackground({
-  className = "",
-  intensity = 0.2,
   children,
+  className,
+  intensity = 0.1,
+  reverse = false,
+  containerClassName,
+  ...props
 }: ParallaxBackgroundProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
+  const { scrollY } = useScroll();
+  const [elementTop, setElementTop] = useState(0);
+  const [clientHeight, setClientHeight] = useState(0);
+  const ref = React.useRef<HTMLDivElement>(null);
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", `${intensity * 100}%`]);
+  // Update element position and screen height on mount and resize
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const onResize = () => {
+      setElementTop(element.offsetTop);
+      setClientHeight(window.innerHeight);
+    };
+
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [ref]);
+
+  const direction = reverse ? -1 : 1;
+  
+  // Calculate y offset based on scroll position
+  const y = useTransform(
+    scrollY,
+    [elementTop - clientHeight, elementTop + clientHeight],
+    [`${-intensity * 100 * direction}%`, `${intensity * 100 * direction}%`]
+  );
 
   return (
-    <div ref={ref} className={`relative overflow-hidden ${className}`}>
-      <motion.div
-        className="absolute inset-0 w-full h-full z-0"
+    <div ref={ref} className={cn("relative overflow-hidden", containerClassName)} {...props}>
+      <motion.div 
+        className={cn("h-full w-full", className)}
         style={{ y }}
       >
-        <div className="absolute inset-0 bg-gradient-radial from-primary/10 to-transparent opacity-70" />
-        <div className="absolute inset-0 w-full h-full bg-grid-pattern opacity-10" />
+        {children}
       </motion.div>
-      <div className="relative z-10">{children}</div>
     </div>
   );
 }

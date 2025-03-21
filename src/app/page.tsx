@@ -1,11 +1,8 @@
-// import HeroSection from "@/components/hero-section";
 import SocialProof from "@/components/social-proof";
-// import Features from "@/components/features";
 import Solution from "@/components/solution";
 import Stats from "@/components/stats";
 import Benefits from "@/components/benefits";
 import HowItWorks from "@/components/how-it-works";
-import Integrations from "@/components/integrations";
 import Testimonials from "@/components/testimonials";
 import Newsletter from "@/components/newsletter";
 import FAQ from "@/components/faq";
@@ -14,19 +11,19 @@ import Footer from "@/components/footer";
 import { ThemeEffect } from "@/components/theme-effect";
 import GrainEffect from "@/components/grain-effect";
 import { Suspense, lazy } from "react";
-import AnimatedSection from "@/components/animated-section";
-import ParallaxBackground from "@/components/parallax-background";
+import { EnhancedSection } from "@/components/enhanced-layout";
+import { GrainyTexture } from "@/components/effects/grainy-texture";
 
-// Lazy load some components for better performance
-const LazyHeroSection = lazy(() => import("@/components/hero-section"));
-const LazyFeatures = lazy(() => import("@/components/features"));
+const LazyHeroSection = lazy(() => import("@/components/hero-section").then(module => ({ default: module.StandaloneHeroSection })));
+const LazyFeatures = lazy(() => import("@/components/features").then(module => ({ default: module.default })));
 
 export default function Home() {
   return (
     <>
-      {/* Background effects */}
+      {/* Global background effects - using a more subtle grain */}
       <ThemeEffect />
       <GrainEffect />
+      <GrainyTexture opacity={0.15} blend="soft-light" />
       
       {/* Main content with smooth scrolling */}
       <main className="relative min-h-screen overflow-hidden scroll-smooth" id="top">
@@ -37,93 +34,175 @@ export default function Home() {
           </Suspense>
         </section>
         
-        {/* Social proof with subtle entrance animation */}
-        <ParallaxBackground intensity={0.1} className="py-12 md:py-16 relative z-10">
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Social proof with subtle entrance animation - cyan tinted grain */}
+        <EnhancedSection 
+          className="py-12 md:py-16"
+          withParticles={true}
+          particleColor="rgba(82, 170, 173, 0.3)"
+          lineColor="rgba(171, 81, 55, 0.15)"
+          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 to-indigo-500/10"
+          grainColor="rgba(82, 170, 173, 0.03)" // Cyan tint to grain
+          grainOpacity={0.12}
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <SocialProof />
-          </AnimatedSection>
-        </ParallaxBackground>
+          </div>
+        </EnhancedSection>
         
-        {/* Features section with increased spacing */}
-        <section className="relative z-10 py-16 md:py-24 overflow-hidden">
-          <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl" direction="up">
+        {/* Features section with increased spacing - purple tinted grain */}
+        <EnhancedSection 
+          className="py-16 md:py-24"
+          withGrain={true}
+          grainOpacity={0.18}
+          grainColor="rgba(125, 99, 205, 0.03)" // Purple tint to grain
+          backgroundGradient="bg-gradient-to-b from-[#121116]/0 via-purple-600/5 to-[#121116]/0"
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading features...</div>}>
               <LazyFeatures />
             </Suspense>
-          </AnimatedSection>
-        </section>
+          </div>
+        </EnhancedSection>
         
-        {/* Solution section with contrasting background */}
-        <ParallaxBackground className="relative z-10 py-20 md:py-32" intensity={0.15}>
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8" direction="right">
+        {/* Solution section with contrasting background - rust tinted grain */}
+        <EnhancedSection 
+          className="py-20 md:py-32"
+          withParticles={true}
+          particleColor="rgba(171, 81, 55, 0.3)"
+          lineColor="rgba(82, 170, 173, 0.15)"
+          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#ab5137]/5 to-[#121116]/0"
+          grainColor="rgba(171, 81, 55, 0.03)" // Rust tint to grain
+          grainOpacity={0.15}
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <Solution />
-          </AnimatedSection>
-        </ParallaxBackground>
+          </div>
+        </EnhancedSection>
         
-        {/* Stats with visual impact */}
-        <section className="relative z-10 py-16 md:py-24 bg-gradient-to-r from-background/30 via-background/0 to-background/30">
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8" direction="up" threshold={0.2}>
+        {/* Stats with visual impact - neutral grain */}
+        <EnhancedSection 
+          className="py-16 md:py-24"
+          withGrain={true}
+          backgroundGradient="bg-gradient-to-r from-[#121116]/20 via-background/0 to-[#121116]/20"
+          grainOpacity={0.1}
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <Stats />
-          </AnimatedSection>
-        </section>
+          </div>
+        </EnhancedSection>
         
-        {/* Benefits with improved spacing */}
-        <ParallaxBackground className="relative z-10 py-20 md:py-28" intensity={0.2}>
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl" direction="left">
+        {/* Benefits with improved spacing - teal tinted grain */}
+        <EnhancedSection 
+          className="py-20 md:py-28"
+          withParticles={true}
+          particleColor="rgba(82, 170, 173, 0.4)"
+          lineColor="rgba(171, 81, 55, 0.2)"
+          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#52aaad]/5 to-[#121116]/0"
+          grainColor="rgba(82, 170, 173, 0.03)" // Teal tint to grain
+          grainOpacity={0.15}
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <Benefits />
-          </AnimatedSection>
-        </ParallaxBackground>
+          </div>
+        </EnhancedSection>
         
-        {/* How it works with proper spacing */}
-        <section className="relative z-10 py-24 md:py-32 overflow-hidden">
-          <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8" direction="up" threshold={0.15}>
+        {/* How it works with proper spacing - gold tinted grain */}
+        <EnhancedSection 
+          className="py-24 md:py-32"
+          withGrain={true}
+          grainOpacity={0.14}
+          grainColor="rgba(200, 157, 74, 0.03)" // Gold tint to grain
+          backgroundGradient="bg-gradient-to-b from-[#121116]/0 via-[#c89d4a]/5 to-[#121116]/0"
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <HowItWorks />
-          </AnimatedSection>
-        </section>
+          </div>
+        </EnhancedSection>
         
-        {/* Integrations with visual contrast */}
-        <ParallaxBackground className="relative z-10 py-16 md:py-24" intensity={0.1}>
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8" direction="right">
-            <Integrations />
-          </AnimatedSection>
-        </ParallaxBackground>
+        {/* Integrations with visual contrast - gold particles and cyan grain */}
+        <EnhancedSection 
+          className="py-16 md:py-24"
+          withParticles={true}
+          particleColor="rgba(200, 157, 74, 0.3)"
+          lineColor="rgba(82, 170, 173, 0.15)"
+          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#c89d4a]/5 to-[#121116]/0"
+          grainColor="rgba(82, 170, 173, 0.02)" // Cyan tint to grain
+          grainOpacity={0.1}
+        >
+
+        </EnhancedSection>
         
-        {/* Testimonials with enhanced focus */}
-        <section className="relative z-10 py-20 md:py-32">
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl" direction="up" threshold={0.2}>
+        {/* Testimonials with enhanced focus - teal tinted grain */}
+        <EnhancedSection 
+          className="py-20 md:py-32"
+          withGrain={true}
+          grainOpacity={0.12}
+          grainColor="rgba(82, 170, 173, 0.03)" // Teal tint to grain
+          backgroundGradient="bg-gradient-to-b from-[#121116]/0 via-[#52aaad]/10 to-[#121116]/0"
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
             <Testimonials />
-          </AnimatedSection>
-        </section>
+          </div>
+        </EnhancedSection>
         
-        {/* Newsletter with prominent display */}
-        <ParallaxBackground className="relative z-10 py-16 md:py-24" intensity={0.15}>
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl" direction="up">
+        {/* Newsletter with prominent display - rust tinted grain */}
+        <EnhancedSection 
+          className="py-16 md:py-24"
+          withParticles={true}
+          particleColor="rgba(171, 81, 55, 0.3)"
+          lineColor="rgba(82, 170, 173, 0.2)"
+          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#ab5137]/5 to-[#121116]/0"
+          grainColor="rgba(171, 81, 55, 0.03)" // Rust tint to grain
+          grainOpacity={0.12}
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
             <Newsletter />
-          </AnimatedSection>
-        </ParallaxBackground>
+          </div>
+        </EnhancedSection>
         
-        {/* FAQ with clear section differentiation */}
-        <section className="relative z-10 py-20 md:py-28 bg-gradient-to-b from-background/0 to-background/20">
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl" direction="up" threshold={0.1}>
+        {/* FAQ with clear section differentiation - subtle neutral grain */}
+        <EnhancedSection 
+          className="py-20 md:py-28"
+          withGrain={true}
+          grainOpacity={0.1}
+          backgroundGradient="bg-gradient-to-b from-[#121116]/0 to-[#121116]/20"
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
             <FAQ />
-          </AnimatedSection>
-        </section>
+          </div>
+        </EnhancedSection>
         
-        {/* CTV (Call to Value) with high visibility */}
-        <ParallaxBackground className="relative z-10 py-24 md:py-32" intensity={0.25}>
-          <AnimatedSection className="container mx-auto px-4 sm:px-6 lg:px-8" direction="up" delay={0.1}>
+        {/* CTV (Call to Value) with high visibility - mixed cyan and gold grain */}
+        <EnhancedSection 
+          className="py-24 md:py-32"
+          withParticles={true}
+          particleColor="rgba(82, 170, 173, 0.4)"
+          lineColor="rgba(200, 157, 74, 0.2)"
+          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#52aaad]/10 to-[#121116]/0"
+          grainColor="rgba(136, 160, 166, 0.03)" // Mixed cyan-gold tint
+          grainOpacity={0.14}
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <CTV />
-          </AnimatedSection>
-        </ParallaxBackground>
+          </div>
+        </EnhancedSection>
       </main>
       
       {/* Footer */}
       <footer className="relative z-10 bg-background/80 backdrop-blur-md">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <Footer />
-        </div>
+        <EnhancedSection 
+          className="py-12"
+          withParticles={true}
+          particleColor="rgba(82, 170, 173, 0.3)"
+          lineColor="rgba(171, 81, 55, 0.15)"
+          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#52aaad]/5 to-[#121116]/10"
+          grainColor="rgba(82, 170, 173, 0.03)"
+          grainOpacity={0.12}
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <Footer />
+          </div>
+        </EnhancedSection>
       </footer>
       
       {/* Enhanced scroll to top button with glow effect */}

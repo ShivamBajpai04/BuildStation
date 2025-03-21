@@ -1,33 +1,85 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/effects/animated-button";
+import { Floating, StaggerChildren } from "@/components/effects/animated-components";
+import { InteractiveCard } from "@/components/effects/interactive-card";
+import { GradientText } from "@/components/effects/gradient-text";
+import { ArrowRight, Zap } from "lucide-react";
 
 export default function CTV() {
   return (
-    <section className="relative overflow-hidden py-24 bg-gradient-to-br from-primary/10 to-primary/5 dark:from-black dark:to-black border-t border-b border-primary/10 dark:border-border">
-      <div className="container">
-        <div className="relative z-10 mx-auto flex max-w-[58rem] flex-col items-center justify-center text-center">
-          <h2 className="font-heading text-3xl leading-[1.1] md:text-5xl">
-            Ready to revolutionize your workflow?
-          </h2>
-          <p className="max-w-[600px] md:text-xl mt-4 text-muted-foreground dark:text-gray-400">
-            Join thousands of users finding their dream jobs and earning NFTs for job postings
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Button size="lg" className="px-8 bg-primary hover:bg-primary/90">
-              Start Your Free Trial
-            </Button>
-            <Link
-              href="/learn-more"
-              className="inline-flex h-10 items-center justify-center rounded-md border border-primary bg-transparent px-8 text-sm font-medium text-primary shadow-sm transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 dark:border-white dark:text-white dark:hover:bg-white/20"
-            >
-              Learn More
-            </Link>
-          </div>
+    <div className="relative">
+      <InteractiveCard
+        className="rounded-2xl overflow-hidden border-white/10"
+        backgroundGradient="bg-gradient-to-b from-[#0c0c10] to-[#121116]"
+        glowColor="rgba(82, 170, 173, 0.15)"
+        grainOpacity={0.14} // Consistent grain opacity
+        rotationIntensity={2}
+        hoverScale={1.01}
+      >
+        <div className="p-8 md:p-12 lg:p-16">
+          <StaggerChildren
+            className="max-w-4xl mx-auto text-center space-y-10"
+            direction="up"
+          >
+            <div className="space-y-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                Begin Your <GradientText text="Journey" gradient="from-[#52aaad] via-[#c89d4a] to-[#ab5137]" animate />
+                <br />Today
+              </h2>
+              
+              <p className="text-xl text-white/70 max-w-2xl mx-auto">
+                Experience the future of work. Our platform is ready to transform your workflow with AI-powered solutions.
+              </p>
+            </div>
+
+            <div className="pt-4 flex flex-col sm:flex-row gap-5 justify-center">
+              <AnimatedButton
+                size="lg"
+                variant="gradient"
+                gradient="from-[#52aaad] to-[#52aaad]"
+                className="rounded-md text-white px-8"
+                shine
+                glowIntensity="medium"
+                grainy={true}
+                grainOpacity={0.08} // Subtle grain on button
+                icon={<Zap className="h-5 w-5" />}
+              >
+                Start Free Trial
+              </AnimatedButton>
+
+              <AnimatedButton
+                size="lg"
+                variant="outline"
+                className="rounded-md text-white border-white/20 bg-white/5 hover:bg-white/10"
+                grainy={false} // No grain on this button for contrast
+                icon={<ArrowRight className="h-5 w-5" />}
+                iconPosition="right"
+              >
+                Book a Demo
+              </AnimatedButton>
+            </div>
+
+            <p className="text-sm text-white/50 max-w-lg mx-auto">
+              No credit card required. 14-day free trial. Cancel anytime.
+            </p>
+          </StaggerChildren>
         </div>
-      </div>
-    </section>
+
+        {/* Decorative elements */}
+        <Floating
+          className="absolute -top-12 -left-12 w-32 h-32 rounded-full bg-[#52aaad]/10 filter blur-[80px]"
+          duration={7}
+          y={15}
+        />
+        <Floating
+          className="absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-[#ab5137]/10 filter blur-[100px]"
+          duration={9}
+          y={20}
+          delay={1}
+        />
+      </InteractiveCard>
+    </div>
   );
 }
 

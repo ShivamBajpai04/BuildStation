@@ -63,10 +63,12 @@ export default function Benefits() {
   };
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-black relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-blue-500/5 rounded-full filter blur-3xl"></div>
+    <section className="w-full py-12 md:py-24 lg:py-32 relative overflow-hidden">
+      {/* Removed background color to let EnhancedSection handle it */}
+      
+      {/* Decorative blurred circles that match the Enhanced section colors */}
+      <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-[#52aaad]/10 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-[#52aaad]/10 rounded-full filter blur-3xl"></div>
       
       <div className="container px-4 md:px-6 relative z-10">
         <motion.div 

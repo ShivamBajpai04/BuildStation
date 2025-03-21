@@ -11,7 +11,6 @@ type GlowButtonProps = Omit<HTMLMotionProps<"button">, keyof ButtonHTMLAttribute
   className?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  children?: React.ReactNode;
 };
 
 const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(

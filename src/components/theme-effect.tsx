@@ -1,18 +1,23 @@
-"use client"
+"use client";
 
-import { useTheme } from "@/components/theme-provider"
-import { useEffect } from "react"
+import { useEffect, useState } from "react";
 
 export function ThemeEffect() {
-  const { setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | "system" | null
-    if (savedTheme) {
-      setTheme(savedTheme)
+    setMounted(true);
+    
+    // Apply initial dark theme for our specific design
+    if (typeof window !== "undefined") {
+      document.documentElement.classList.add("dark");
     }
-  }, [setTheme])
+  }, []);
 
-  return null
+  if (!mounted) return null;
+
+  return (
+    <div className="fixed inset-0 -z-10 h-full w-full bg-[#0c0c10]" />
+  );
 }
 
