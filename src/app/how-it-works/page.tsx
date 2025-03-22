@@ -4,10 +4,10 @@ import { GrainyTexture } from "@/components/effects/grainy-texture";
 import { EnhancedSection } from "@/components/enhanced-layout";
 import { motion, useSpring, useMotionValue, useTransform } from "framer-motion";
 import { Award, Zap, BriefcaseIcon } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, ReactNode } from "react";
 
 // Enhanced Floating animation component for stats cards
-function FloatingElement({ children, yOffset = 15, duration = 6, delay = 0 }) {
+function FloatingElement({ children, yOffset = 15, duration = 6, delay = 0 }: { children: ReactNode, yOffset?: number, duration?: number, delay?: number }) {
   return (
     <motion.div
       initial={{ y: 0 }}
