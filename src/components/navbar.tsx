@@ -30,6 +30,14 @@ export default function Navbar() {
             >
               Our Team
             </Link>
+            <SignedIn>
+              <Link
+                href="/mainpage"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              >
+                Main Page
+              </Link>
+            </SignedIn>
           </nav>
         </div>
 
@@ -38,10 +46,16 @@ export default function Navbar() {
             <UserButton />
           </SignedIn>
           <SignedOut>
-            <Link href="/sign-in" className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs">
+            <Link
+              href="/sign-in"
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs"
+            >
               Log in
             </Link>
-            <Link href="/sign-up" className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs">
+            <Link
+              href="/sign-up"
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs"
+            >
               Sign up
             </Link>
           </SignedOut>
