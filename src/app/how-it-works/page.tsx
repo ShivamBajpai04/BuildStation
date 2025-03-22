@@ -90,6 +90,7 @@ function EnhancedVideoContainer() {
   const [isHovering, setIsHovering] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
   
   // Mouse position values for 3D effect
   const x = useMotionValue(0);
@@ -103,6 +104,10 @@ function EnhancedVideoContainer() {
   // Transform values for rotation
   const rotateX = useTransform(ySpring, [-0.5, 0.5], [3, -3]);
   const rotateY = useTransform(xSpring, [-0.5, 0.5], [-3, 3]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
@@ -163,14 +168,16 @@ function EnhancedVideoContainer() {
             />
           )}
           
-          <video
-            className="w-full h-full object-cover z-10 relative"
-            controls
-            poster="/placeholder.svg?height=600&width=800"
-          >
-            <source src="/demo-placeholder.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          {isMounted && (
+            <video
+              className="w-full h-full object-cover z-10 relative"
+              controls
+              poster="/placeholder.svg?height=600&width=800"
+            >
+              <source src="/demo-placeholder.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
           
           {/* Video control bar overlay */}
           <div className="absolute bottom-0 left-0 right-0 h-10 bg-black/50 backdrop-blur-sm z-20 flex items-center px-3">
