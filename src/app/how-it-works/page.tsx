@@ -24,6 +24,67 @@ function FloatingElement({ children, yOffset = 15, duration = 6, delay = 0 }) {
   );
 }
 
+// Stat Card with Spotlight Effect
+function StatCardWithSpotlight({ 
+  icon, 
+  title, 
+  value, 
+  color, 
+  className 
+}: { 
+  icon: React.ReactNode, 
+  title: string, 
+  value: string, 
+  color: string, 
+  className?: string 
+}) {
+  const [isHovering, setIsHovering] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+    
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    
+    setMousePosition({ x, y });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className={`w-44 rounded-md bg-gradient-to-br from-[#1c1b1b] to-[#121116] border border-[${color}]/20 p-3 shadow-lg relative overflow-hidden transition-transform duration-300 ${
+        isHovering ? 'scale-105' : 'scale-100'
+      } ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
+      {/* Spotlight effect */}
+      {isHovering && (
+        <div
+          className="absolute pointer-events-none inset-0 opacity-40 mix-blend-soft-light"
+          style={{
+            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(255,255,255,0.8) 0%, transparent 60%)`
+          }}
+        />
+      )}
+      
+      <div className="flex flex-col items-center gap-2 relative z-10">
+        <div className={`h-9 w-9 rounded-full bg-[${color}]/20 border border-[${color}]/30 flex items-center justify-center`}>
+          {icon}
+        </div>
+        <div className="text-center">
+          <p className={`text-xs text-[${color}] font-medium`}>{title}</p>
+          <p className="text-lg font-bold text-white mt-1">{value}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Enhanced video container with interactive elements
 function EnhancedVideoContainer() {
   const [isHovering, setIsHovering] = useState(false);
@@ -158,39 +219,27 @@ export default function HowItWorksPage() {
             </p>
           </div>
  
-
-       
           {/* Left floating stat card - positioned to be fully visible with max z-index */}
           <div className="absolute top-1/3 md:-left-8 z-50 hidden md:block">
             <FloatingElement yOffset={10} duration={6} delay={0.2}>
-              <div className="w-44 rounded-md bg-gradient-to-br from-[#1c1b1b] to-[#121116] border border-[#52aaad]/20 p-3 shadow-lg">
-                <div className="flex flex-col items-center gap-2">
-                  <div className="h-9 w-9 rounded-full bg-[#52aaad]/20 border border-[#52aaad]/30 flex items-center justify-center">
-                    <Award className="h-4 w-4 text-[#52aaad]" />
-                  </div>
-                  <div className="text-center">
-                    <p className="text-xs text-[#52aaad] font-medium">Task Automation</p>
-                    <p className="text-lg font-bold text-white mt-1">+85%</p>
-                  </div>
-                </div>
-              </div>
+              <StatCardWithSpotlight 
+                icon={<Award className="h-4 w-4 text-[#52aaad]" />}
+                title="Task Automation"
+                value="+85%"
+                color="#52aaad"
+              />
             </FloatingElement>
           </div>
 
           {/* Right floating stat card - positioned to be fully visible with max z-index */}
           <div className="absolute bottom-1/3 md:-right-8 z-50 hidden md:block">
             <FloatingElement yOffset={10} duration={5.5} delay={0.5}>
-              <div className="w-44 rounded-md bg-gradient-to-br from-[#1c1b1b] to-[#121116] border border-[#c89d4a]/20 p-3 shadow-lg">
-                <div className="flex flex-col items-center gap-2">
-                  <div className="h-9 w-9 rounded-full bg-[#c89d4a]/20 border border-[#c89d4a]/30 flex items-center justify-center">
-                    <Zap className="h-4 w-4 text-[#c89d4a]" />
-                  </div>
-                  <div className="text-center">
-                    <p className="text-xs text-[#c89d4a] font-medium">Productivity</p>
-                    <p className="text-lg font-bold text-white mt-1">+200%</p>
-                  </div>
-                </div>
-              </div>
+              <StatCardWithSpotlight 
+                icon={<Zap className="h-4 w-4 text-[#c89d4a]" />}
+                title="Productivity"
+                value="+200%"
+                color="#c89d4a"
+              />
             </FloatingElement>
           </div>
 
@@ -222,8 +271,6 @@ export default function HowItWorksPage() {
               </div>
             </div>
           </div>
-        
-
         
           <h2 className="text-center text-2xl font-bold mb-10">Three Simple Steps</h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
