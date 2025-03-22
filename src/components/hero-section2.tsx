@@ -1084,7 +1084,7 @@ export function StandaloneHeroSection() {
               <motion.div className="inline-flex items-center gap-2 px-3 py-1 mb-2
                 rounded-full bg-[#ab5137]/10 border border-[#ab5137]/20 text-sm font-medium text-[#e2a89e]">
                 <Sparkles className="h-3.5 w-3.5 text-[#e2a89e]" />
-                <span>REVOLUTIONARY JOB MATCHING PLATFORM</span>
+                <span>REVOLUTIONARY JOB PLATFORM</span>
               </motion.div>
 
               <div className="space-y-3">

@@ -4,7 +4,7 @@ import { WebhookEvent, UserJSON } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
-export const maxDuration = 10; // Set max duration to 10 seconds
+export const maxDuration = 120; // Set max duration to 10 seconds
 
 export async function POST(req: Request) {
   try {
