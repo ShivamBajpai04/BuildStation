@@ -204,24 +204,7 @@ export default function TeamPage() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.1)_0,rgba(var(--background),1)_70%)]"></div>
 
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full bg-primary/10"
-              style={{
-                width: `${Math.random() * 300 + 50}px`,
-                height: `${Math.random() * 300 + 50}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                opacity: Math.random() * 0.5 + 0.1,
-                animation: `float ${Math.random() * 10 + 20}s linear infinite`,
-                animationDelay: `${Math.random() * 20}s`,
-              }}
-            ></div>
-          ))}
-        </div>
+        
 
         <div className="container relative px-4 md:px-6 z-10">
           <motion.div
