@@ -129,7 +129,7 @@ function EnhancedVideoContainer() {
     <div className="max-w-3xl mx-auto my-12 px-4 sm:px-6 lg:px-12 relative z-10">
       <motion.div
         ref={containerRef}
-        className="relative rounded-xl overflow-hidden shadow-2xl border border-[#52aaad]/20"
+        className="relative rounded-xl overflow-hidden shadow-2xl border border-[#3b82f6]/20"
         style={{
           perspective: 1000,
           transformStyle: "preserve-3d",
@@ -151,7 +151,7 @@ function EnhancedVideoContainer() {
           {/* Background grid pattern */}
           <div className="absolute inset-0 opacity-20"
             style={{
-              backgroundImage: "radial-gradient(#52aaad30 1px, transparent 1px)",
+              backgroundImage: "radial-gradient(#3b82f630 1px, transparent 1px)",
               backgroundSize: "20px 20px"
             }}
           />
@@ -184,7 +184,7 @@ function EnhancedVideoContainer() {
             <div className="flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-[#ab5137]/70"></div>
               <div className="w-2.5 h-2.5 rounded-full bg-[#c89d4a]/70"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#52aaad]/70"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#3b82f6]/70"></div>
             </div>
             <div className="flex items-center mx-auto">
               <BriefcaseIcon className="h-3 w-3 text-[#c89d4a] mr-1.5" />
@@ -203,7 +203,7 @@ export default function HowItWorksPage() {
       {/* Grid background pattern */}
       <div className="absolute inset-0 z-0 opacity-20"
         style={{
-          backgroundImage: "linear-gradient(#52aaad18 1px, transparent 1px), linear-gradient(to right, #52aaad18 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(#3b82f618 1px, transparent 1px), linear-gradient(to right, #3b82f618 1px, transparent 1px)",
           backgroundSize: "40px 40px"
         }}
       />
@@ -230,10 +230,10 @@ export default function HowItWorksPage() {
           <div className="absolute top-1/3 md:-left-8 z-50 hidden md:block">
             <FloatingElement yOffset={10} duration={6} delay={0.2}>
               <StatCardWithSpotlight 
-                icon={<Award className="h-4 w-4 text-[#52aaad]" />}
+                icon={<Award className="h-4 w-4 text-[#3b82f6]" />}
                 title="Task Automation"
                 value="+85%"
-                color="#52aaad"
+                color="#3b82f6"
               />
             </FloatingElement>
           </div>
@@ -255,13 +255,13 @@ export default function HowItWorksPage() {
 
           {/* Mobile-only stat cards for smaller screens */}
           <div className="flex justify-center gap-6 mt-6 md:hidden">
-            <div className="w-32 rounded-md bg-gradient-to-br from-[#1c1b1b] to-[#121116] border border-[#52aaad]/20 p-2 shadow-lg">
+            <div className="w-32 rounded-md bg-gradient-to-br from-[#1c1b1b] to-[#121116] border border-[#3b82f6]/20 p-2 shadow-lg">
               <div className="flex items-center gap-2">
-                <div className="h-7 w-7 rounded-full bg-[#52aaad]/20 border border-[#52aaad]/30 flex items-center justify-center">
-                  <Award className="h-3 w-3 text-[#52aaad]" />
+                <div className="h-7 w-7 rounded-full bg-[#3b82f6]/20 border border-[#3b82f6]/30 flex items-center justify-center">
+                  <Award className="h-3 w-3 text-[#3b82f6]" />
                 </div>
                 <div>
-                  <p className="text-xs text-[#52aaad] font-medium">Automation</p>
+                  <p className="text-xs text-[#3b82f6] font-medium">Automation</p>
                   <p className="text-sm font-bold text-white">+85%</p>
                 </div>
               </div>
@@ -327,7 +327,7 @@ export default function HowItWorksPage() {
       </div>
       
       {/* Decorative elements - enhanced with animation */}
-      <div className="absolute top-1/4 -left-20 w-40 h-40 rounded-full bg-[#52aaad]/10 filter blur-[80px] opacity-70 animate-pulse-slow"></div>
+      <div className="absolute top-1/4 -left-20 w-40 h-40 rounded-full bg-[#3b82f6]/10 filter blur-[80px] opacity-70 animate-pulse-slow"></div>
       <div className="absolute bottom-1/4 -right-20 w-60 h-60 rounded-full bg-[#ab5137]/10 filter blur-[100px] opacity-50 animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
     </main>
   );

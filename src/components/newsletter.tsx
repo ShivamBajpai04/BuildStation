@@ -22,13 +22,13 @@ export default function Newsletter() {
           <div className="w-full max-w-md space-y-4">
             <form className="flex space-x-2">
               <input
-                className="flex h-11 w-full rounded-md border border-[#52aaad]/20 bg-background/50 backdrop-blur-sm px-4 py-2 text-sm shadow-sm transition-colors placeholder:text-muted-foreground/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#52aaad]/40 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-11 w-full rounded-md border border-[#3b82f6]/20 bg-background/50 backdrop-blur-sm px-4 py-2 text-sm shadow-sm transition-colors placeholder:text-muted-foreground/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#3b82f6]/40 disabled:cursor-not-allowed disabled:opacity-50"
                 placeholder="Enter your email"
                 type="email"
                 required
               />
               <button
-                className="inline-flex h-11 items-center justify-center rounded-md bg-[#52aaad] px-5 py-2 text-sm font-medium text-white shadow-md transition-colors hover:bg-[#52aaad]/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#52aaad] disabled:pointer-events-none disabled:opacity-50"
+                className="inline-flex h-11 items-center justify-center rounded-md bg-[#3b82f6] px-5 py-2 text-sm font-medium text-white shadow-md transition-colors hover:bg-[#3b82f6]/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#3b82f6] disabled:pointer-events-none disabled:opacity-50"
                 type="submit"
               >
                 Subscribe

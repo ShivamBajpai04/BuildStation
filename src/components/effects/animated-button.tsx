@@ -75,9 +75,9 @@ export function AnimatedButton({
 
   // Glow intensity
   const glowShadow = {
-    low: "shadow-[0_0_10px_rgba(82,170,173,0.5)]",
-    medium: "shadow-[0_0_20px_rgba(82,170,173,0.6)]",
-    high: "shadow-[0_0_30px_rgba(82,170,173,0.7)]",
+    low: "shadow-[0_0_10px_rgba(59,130,246,0.5)]",
+    medium: "shadow-[0_0_20px_rgba(59,130,246,0.6)]",
+    high: "shadow-[0_0_30px_rgba(59,130,246,0.7)]",
   };
 
   // Client-side effect

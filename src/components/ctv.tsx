@@ -24,7 +24,7 @@ export default function CTV() {
           >
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                Begin Your <GradientText text="Journey" gradient="from-[#52aaad] via-[#c89d4a] to-[#ab5137]" animate />
+                Begin Your <GradientText text="Journey" gradient="from-[#3b82f6] via-[#c89d4a] to-[#ab5137]" animate />
                 <br />Today
               </h2>
               
@@ -37,7 +37,7 @@ export default function CTV() {
               <AnimatedButton
                 size="lg"
                 variant="gradient"
-                gradient="from-[#52aaad] to-[#52aaad]"
+                gradient="from-[#3b82f6] to-[#3b82f6]"
                 className="rounded-md text-white px-8"
                 shine
                 glowIntensity="medium"
@@ -68,7 +68,7 @@ export default function CTV() {
 
         {/* Decorative elements */}
         <Floating
-          className="absolute -top-12 -left-12 w-32 h-32 rounded-full bg-[#52aaad]/10 filter blur-[80px]"
+          className="absolute -top-12 -left-12 w-32 h-32 rounded-full bg-[#3b82f6]/10 filter blur-[80px]"
           duration={7}
           y={15}
         />

@@ -12,7 +12,7 @@ export default function Stats() {
       label: "Customer Satisfaction",
       description: "Across all platforms",
       icon: "⭐",
-      color: "#52aaad",
+      color: "#3b82f6",
     },
     {
       value: "∞",
@@ -33,7 +33,7 @@ export default function Stats() {
       label: "Enterprise Clients",
       description: "Across all industries(till now)",
       icon: "🏢",
-      color: "#52aaad",
+      color: "#3b82f6",
     },
   ];
 
@@ -45,7 +45,7 @@ export default function Stats() {
       >
         <div className="space-y-4 max-w-3xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-white">
-            Delivering Real <GradientText text="Results" gradient="from-[#52aaad] to-[#c89d4a]" animate interactive />
+            Delivering Real <GradientText text="Results" gradient="from-[#3b82f6] to-[#c89d4a]" animate interactive />
           </h2>
           <p className="text-white/70 text-lg">
             Our platform is designed to provide measurable outcomes that transform your business and also for job seekers.

@@ -54,7 +54,7 @@
     --card-foreground: hsl(0, 0%, 0%);
     --popover: hsl(0, 0%, 100%);
     --popover-foreground: hsl(0, 0%, 0%);
-    --primary: hsl(187, 50%, 54%);
+    --primary: hsl(210, 100%, 60%);
     --primary-foreground: hsl(0, 0%, 100%);
     --secondary: hsl(352, 50%, 72%);
     --secondary-foreground: hsl(0, 0%, 0%);
@@ -66,7 +66,7 @@
     --destructive-foreground: hsl(0, 0%, 100%);
     --border: hsl(0, 0%, 92%);
     --input: hsl(0, 0%, 92%);
-    --ring: hsl(187, 50%, 54%);
+    --ring: hsl(210, 100%, 60%);
     --radius: 0.625rem;
   }
 
@@ -83,7 +83,7 @@
     --secondary-foreground: hsl(0, 0%, 0%); /* Pure black text on secondary */
     --muted: hsl(0, 0%, 5%);             /* Very dark but not pure black for muted areas */
     --muted-foreground: hsl(0, 0%, 70%); /* Slightly brighter text for muted areas */
-    --accent: hsl(46, 90%, 65%);         /* Brighter accent color */
+    --accent: hsl(46, 100%, 67%);         /* Brighter accent color */
     --accent-foreground: hsl(0, 0%, 0%); /* Pure black text on accent */
     --destructive: hsl(0, 100%, 60%);    /* Brighter destructive for better visibility */
     --destructive-foreground: hsl(0, 0%, 98%); /* Off-white text on destructive */

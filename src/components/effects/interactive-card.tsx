@@ -25,7 +25,7 @@ export function InteractiveCard({
   backgroundGradient,
   grainOpacity = 0.2,
   disableGrain = false, // Default is to show grain
-  glowColor = "rgba(82, 170, 173, 0.3)",
+  glowColor = "rgba(59, 130, 246, 0.3)",
   shadow = true,
   rotationIntensity = 10,
   hoverScale = 1.02,

@@ -23,7 +23,7 @@ export default function RootLayout({
     <ClerkProvider afterSignOutUrl="/">
       <html lang="en" suppressHydrationWarning>
         <body className={inter.className} suppressHydrationWarning>
-          <ThemeProvider defaultTheme="system">
+          <ThemeProvider defaultTheme="dark">
             <Suspense>
               <Navbar />
             </Suspense>

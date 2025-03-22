@@ -67,8 +67,8 @@ export default function Benefits() {
       {/* Removed background color to let EnhancedSection handle it */}
       
       {/* Decorative blurred circles that match the Enhanced section colors */}
-      <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-[#52aaad]/10 rounded-full filter blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-[#52aaad]/10 rounded-full filter blur-3xl"></div>
+      <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-[#3b82f6]/10 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-[#3b82f6]/10 rounded-full filter blur-3xl"></div>
       
       <div className="container px-4 md:px-6 relative z-10">
         <motion.div 

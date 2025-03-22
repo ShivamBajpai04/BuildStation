@@ -114,7 +114,7 @@ export function GradientText({
         <div
           className="absolute inset-0 -z-10 opacity-70 blur-xl"
           style={{
-            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(82, 170, 173, 0.5), transparent 70%)`,
+            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(59, 130, 246, 0.5), transparent 70%)`,
           }}
         />
       )}

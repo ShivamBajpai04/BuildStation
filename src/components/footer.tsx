@@ -15,8 +15,8 @@ export default function Footer() {
           {/* Company column */}
           <div className="space-y-6">
             <div className="flex items-center">
-              <div className="h-8 w-8 rounded bg-[#52aaad]/20 border border-[#52aaad]/30 flex items-center justify-center mr-2">
-                <span className="text-[#52aaad] font-bold">B</span>
+              <div className="h-8 w-8 rounded bg-[#3b82f6]/20 border border-[#3b82f6]/30 flex items-center justify-center mr-2">
+                <span className="text-[#3b82f6] font-bold">B</span>
               </div>
               <h3 className="text-xl font-bold text-white">BlockBlockJob</h3>
             </div>

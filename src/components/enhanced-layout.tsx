@@ -40,7 +40,7 @@ export function EnhancedSection({
       <div 
         className="absolute inset-0 z-0 opacity-20"
         style={{
-          backgroundImage: "linear-gradient(#52aaad18 1px, transparent 1px), linear-gradient(to right, #52aaad18 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(#3b82f618 1px, transparent 1px), linear-gradient(to right, #3b82f618 1px, transparent 1px)",
           backgroundSize: "40px 40px"
         }}
       />
@@ -61,7 +61,7 @@ export function EnhancedSection({
       {withGrain && <GrainyTexture opacity={grainOpacity} color={grainColor} />}
 
       {/* Decorative blobs */}
-      <div className="absolute top-1/4 -left-20 w-40 h-40 rounded-full bg-[#52aaad]/10 filter blur-[80px] opacity-50 animate-pulse-slow"></div>
+      <div className="absolute top-1/4 -left-20 w-40 h-40 rounded-full bg-[#3b82f6]/10 filter blur-[80px] opacity-50 animate-pulse-slow"></div>
       <div className="absolute bottom-1/4 -right-20 w-60 h-60 rounded-full bg-[#ab5137]/10 filter blur-[100px] opacity-40 animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
 
       {/* Content */}

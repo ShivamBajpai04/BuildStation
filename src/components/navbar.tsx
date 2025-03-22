@@ -2,7 +2,6 @@
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Navbar() {
   return (
@@ -35,7 +34,6 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
-          <ThemeToggle />
           <SignedIn>
             <UserButton />
           </SignedIn>

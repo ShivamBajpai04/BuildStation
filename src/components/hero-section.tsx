@@ -1055,7 +1055,7 @@ export function StandaloneHeroSection() {
       {/* Grid background pattern */}
       <div className="absolute inset-0 z-0 opacity-20"
         style={{
-          backgroundImage: "linear-gradient(#52aaad18 1px, transparent 1px), linear-gradient(to right, #52aaad18 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(#3b82f618 1px, transparent 1px), linear-gradient(to right, #3b82f618 1px, transparent 1px)",
           backgroundSize: "40px 40px"
         }}
       />
@@ -1098,9 +1098,13 @@ export function StandaloneHeroSection() {
                   {/* Chrome text effect styled after Pixelbuddha */}
                   {mounted && (
                     <div className="relative">
-                      <div className="absolute -inset-1 blur-sm bg-gradient-to-r from-cyan-300/30 via-purple-500/30 to-cyan-300/30"></div>
-                      <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold relative bg-clip-text text-transparent bg-gradient-to-r from-[#c89d4a] via-[#e3cba7] to-[#c89d4a] drop-shadow-[0_0_15px_rgba(200,157,74,0.5)]">
-                        Career Journey
+                      <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold relative">
+                        <GradientText 
+                          text="Career Journey" 
+                          gradient="from-[#3b82f6] to-[#c89d4a]" 
+                          animate 
+                          interactive 
+                        />
                       </h1>
                     </div>
                   )}
@@ -1116,7 +1120,7 @@ export function StandaloneHeroSection() {
                 <AnimatedButton
                   size="lg"
                   variant="gradient"
-                  gradient="from-[#52aaad] via-[#52aaad] to-[#c89d4a]"
+                  gradient="from-[#3b82f6] via-[#4f46e5] to-[#6366f1]"
                   className="min-w-44 font-medium rounded-md"
                   shine
                   glowIntensity="medium"
@@ -1147,7 +1151,7 @@ export function StandaloneHeroSection() {
             >
               <Floating className="aspect-video" duration={6} y={15}>
                 <InteractiveCard
-                  className="rounded-lg border-[#52aaad]/20 overflow-hidden"
+                  className="rounded-lg border-[#3b82f6]/20 overflow-hidden"
                   backgroundGradient="bg-gradient-to-b from-[#1c1b1b] to-[#121116]"
                   shadow
                   rotationIntensity={5}
@@ -1164,7 +1168,7 @@ export function StandaloneHeroSection() {
                   >
                     <div className="absolute inset-0 opacity-20"
                       style={{
-                        backgroundImage: "radial-gradient(#52aaad30 1px, transparent 1px)",
+                        backgroundImage: "radial-gradient(#3b82f630 1px, transparent 1px)",
                         backgroundSize: "20px 20px"
                       }}
                     />
@@ -1195,13 +1199,13 @@ export function StandaloneHeroSection() {
                     )}
 
                     {/* Main app UI mockup - Job search interface */}
-                    <div className="relative h-full rounded-md overflow-hidden border border-[#52aaad]/20 bg-[#1c1b1b]">
+                    <div className="relative h-full rounded-md overflow-hidden border border-[#3b82f6]/20 bg-[#1c1b1b]">
                       {/* App header bar */}
-                      <div className="h-10 bg-[#1c1b1b] border-b border-[#52aaad]/20 flex items-center px-4">
+                      <div className="h-10 bg-[#1c1b1b] border-b border-[#3b82f6]/20 flex items-center px-4">
                         <div className="flex items-center gap-1.5">
                           <div className="w-3 h-3 rounded-full bg-[#ab5137]/70"></div>
                           <div className="w-3 h-3 rounded-full bg-[#c89d4a]/70"></div>
-                          <div className="w-3 h-3 rounded-full bg-[#52aaad]/70"></div>
+                          <div className="w-3 h-3 rounded-full bg-[#3b82f6]/70"></div>
                         </div>
                         <div className="flex items-center mx-auto">
                           <BriefcaseIcon className="h-3.5 w-3.5 text-[#c89d4a] mr-1.5" />
@@ -1213,8 +1217,8 @@ export function StandaloneHeroSection() {
                       <div className="p-4 h-[calc(100%-2.5rem)] grid grid-cols-12 gap-3">
                         {/* Sidebar - Search Filters */}
                         <div className="col-span-3 bg-black/20 rounded-md border border-white/5 p-3 flex flex-col gap-3">
-                          <div className="h-7 bg-[#52aaad]/10 rounded-md border border-white/5 flex items-center px-2">
-                            <div className="w-3 h-3 rounded-sm bg-[#52aaad]/70 mr-2"></div>
+                          <div className="h-7 bg-[#3b82f6]/10 rounded-md border border-white/5 flex items-center px-2">
+                            <div className="w-3 h-3 rounded-sm bg-[#3b82f6]/70 mr-2"></div>
                             <div className="h-2 bg-white/20 rounded-sm w-full"></div>
                           </div>
                           <div className="text-xs text-white/50 mb-1 mt-1">Filters</div>
@@ -1225,8 +1229,8 @@ export function StandaloneHeroSection() {
                             </div>
                           ))}
                           <div className="mt-auto">
-                            <div className="h-8 bg-[#52aaad]/20 rounded-md border border-[#52aaad]/30 flex items-center justify-center">
-                              <div className="h-2 w-16 bg-[#52aaad]/70 rounded-sm"></div>
+                            <div className="h-8 bg-[#3b82f6]/20 rounded-md border border-[#3b82f6]/30 flex items-center justify-center">
+                              <div className="h-2 w-16 bg-[#3b82f6]/70 rounded-sm"></div>
                             </div>
                           </div>
                         </div>
@@ -1238,8 +1242,8 @@ export function StandaloneHeroSection() {
                             <div className="flex-1 bg-black/30 rounded-md border border-white/10 flex items-center px-3">
                               <div className="h-2.5 bg-white/20 rounded-sm w-28"></div>
                             </div>
-                            <div className="w-10 h-10 bg-[#52aaad]/20 rounded-md border border-[#52aaad]/30 flex items-center justify-center">
-                              <div className="w-4 h-4 rounded-sm bg-[#52aaad]/70"></div>
+                            <div className="w-10 h-10 bg-[#3b82f6]/20 rounded-md border border-[#3b82f6]/30 flex items-center justify-center">
+                              <div className="w-4 h-4 rounded-sm bg-[#3b82f6]/70"></div>
                             </div>
                           </div>
 
@@ -1249,13 +1253,13 @@ export function StandaloneHeroSection() {
                               <div
                                 key={i}
                                 className={`rounded-md border border-white/5 ${
-                                  i === 0 ? 'bg-[#52aaad]/10 border-[#52aaad]/20' : 'bg-black/20'
+                                  i === 0 ? 'bg-[#3b82f6]/10 border-[#3b82f6]/20' : 'bg-black/20'
                                 } p-3 flex flex-col gap-2`}
                               >
                                 <div className="flex justify-between items-start">
                                   <div className="flex gap-3">
                                     <div className="w-8 h-8 rounded-md bg-black/30 flex items-center justify-center">
-                                      {i === 0 && <div className="w-4 h-4 rounded-sm bg-[#52aaad]/70"></div>}
+                                      {i === 0 && <div className="w-4 h-4 rounded-sm bg-[#3b82f6]/70"></div>}
                                       {i === 1 && <div className="w-4 h-4 rounded-sm bg-[#c89d4a]/70"></div>}
                                       {i === 2 && <div className="w-4 h-4 rounded-sm bg-[#ab5137]/70"></div>}
                                     </div>
@@ -1267,7 +1271,7 @@ export function StandaloneHeroSection() {
                                   <div className="flex flex-col items-end">
                                     <div className="h-2.5 bg-white/20 rounded-sm w-16 mb-1"></div>
                                     <div className={`px-2 py-0.5 rounded-sm text-[6px] ${
-                                      i === 0 ? 'bg-[#52aaad]/20 text-[#52aaad]' :
+                                      i === 0 ? 'bg-[#3b82f6]/20 text-[#3b82f6]' :
                                       i === 1 ? 'bg-[#c89d4a]/20 text-[#c89d4a]' :
                                       'bg-white/10 text-white/60'
                                     }`}>
@@ -1284,7 +1288,7 @@ export function StandaloneHeroSection() {
                                   </div>
                                   <div className="col-span-3 flex items-end justify-end">
                                     <div className={`h-6 w-full rounded-sm ${
-                                      i === 0 ? 'bg-[#52aaad]/30 border-[#52aaad]/40' :
+                                      i === 0 ? 'bg-[#3b82f6]/30 border-[#3b82f6]/40' :
                                       'bg-black/30 border-white/10'
                                     } border flex items-center justify-center`}>
                                       <div className="h-1.5 bg-white/40 rounded-sm w-12"></div>
@@ -1320,8 +1324,8 @@ export function StandaloneHeroSection() {
                   rotationIntensity={8}
                 >
                   <div className="flex items-start gap-3 p-3">
-                    <div className="h-10 w-10 rounded bg-[#52aaad]/20 border border-[#52aaad]/30 flex items-center justify-center">
-                      <Search className="h-5 w-5 text-[#52aaad]" />
+                    <div className="h-10 w-10 rounded bg-[#3b82f6]/20 border border-[#3b82f6]/30 flex items-center justify-center">
+                      <Search className="h-5 w-5 text-[#3b82f6]" />
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold text-white">Blockchain Verification</h3>
@@ -1356,7 +1360,7 @@ export function StandaloneHeroSection() {
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-1/4 -left-20 w-40 h-40 rounded-full bg-[#52aaad]/10 filter blur-[80px] opacity-70 animate-pulse-slow"></div>
+        <div className="absolute top-1/4 -left-20 w-40 h-40 rounded-full bg-[#3b82f6]/10 filter blur-[80px] opacity-70 animate-pulse-slow"></div>
         <div className="absolute bottom-1/4 -right-20 w-60 h-60 rounded-full bg-[#ab5137]/10 filter blur-[100px] opacity-50 animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
       </Container>
     </section>

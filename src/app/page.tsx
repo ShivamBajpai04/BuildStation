@@ -91,14 +91,14 @@ export default function Home() {
           </div>
         </EnhancedSection>
         
-        {/* Benefits with improved spacing - teal tinted grain */}
+        {/* Benefits with improved spacing - blue tinted grain */}
         <EnhancedSection 
           className="py-20 md:py-28"
           withParticles={true}
           particleColor="rgba(82, 170, 173, 0.4)"
           lineColor="rgba(171, 81, 55, 0.2)"
-          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#52aaad]/5 to-[#121116]/0"
-          grainColor="rgba(82, 170, 173, 0.03)" // Teal tint to grain
+          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#3b82f6]/5 to-[#121116]/0"
+          grainColor="rgba(59, 130, 246, 0.03)" // Blue tint to grain
           grainOpacity={0.15}
         >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
@@ -121,13 +121,13 @@ export default function Home() {
         
 
         
-        {/* Testimonials with enhanced focus - teal tinted grain */}
+        {/* Testimonials with enhanced focus - blue tinted grain */}
         <EnhancedSection 
           className="py-20 md:py-32"
           withGrain={true}
           grainOpacity={0.12}
-          grainColor="rgba(82, 170, 173, 0.03)" // Teal tint to grain
-          backgroundGradient="bg-gradient-to-b from-[#121116]/0 via-[#52aaad]/10 to-[#121116]/0"
+          grainColor="rgba(59, 130, 246, 0.03)" // Blue tint to grain
+          backgroundGradient="bg-gradient-to-b from-[#121116]/0 via-[#3b82f6]/10 to-[#121116]/0"
         >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
             <Testimonials />
@@ -167,7 +167,7 @@ export default function Home() {
           withParticles={true}
           particleColor="rgba(82, 170, 173, 0.4)"
           lineColor="rgba(200, 157, 74, 0.2)"
-          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#52aaad]/10 to-[#121116]/0"
+          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#3b82f6]/10 to-[#121116]/0"
           grainColor="rgba(136, 160, 166, 0.03)" // Mixed cyan-gold tint
           grainOpacity={0.14}
         >
@@ -184,7 +184,7 @@ export default function Home() {
           withParticles={true}
           particleColor="rgba(82, 170, 173, 0.3)"
           lineColor="rgba(171, 81, 55, 0.15)"
-          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#52aaad]/5 to-[#121116]/10"
+          backgroundGradient="bg-gradient-to-tr from-[#121116]/0 via-[#3b82f6]/5 to-[#121116]/10"
           grainColor="rgba(82, 170, 173, 0.03)"
           grainOpacity={0.12}
         >

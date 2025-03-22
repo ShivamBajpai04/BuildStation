@@ -76,7 +76,7 @@ export default function TeamPage() {
       quote:
         "The best code is no code at all. The second best is code that&apos;s so clear it speaks for itself.",
       department: "leadership",
-      color: "from-green-500 to-teal-500",
+      color: "from-green-500 to-[#3b82f6]",
       emoji: "🚀",
     },
     {
@@ -379,7 +379,7 @@ export default function TeamPage() {
               }}
               className="bg-card rounded-2xl overflow-hidden border border-primary/20 p-8 transform perspective-1000"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6 text-white text-2xl font-bold">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-[#3b82f6] rounded-2xl flex items-center justify-center mb-6 text-white text-2xl font-bold">
                 02
               </div>
               <h3 className="text-2xl font-bold mb-4">Human-Centered</h3>
