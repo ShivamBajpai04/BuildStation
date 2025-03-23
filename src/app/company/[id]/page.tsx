@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
-import { motion } from "framer-motion";
-import { Briefcase, MapPin, Star, ArrowLeft, Building, ExternalLink, Share2, BookmarkPlus, Users, Clock, Zap, Award } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Briefcase, MapPin, Star, ArrowLeft, Building, ExternalLink, Share2, BookmarkPlus, Users, Clock, Zap, Award, X, Calendar, PlusCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { GrainyTexture } from "@/components/effects/grainy-texture";
 
 // Company type
@@ -40,6 +40,22 @@ type Job = {
   updatedAt: string;
 };
 
+type JobPostingFormData = {
+  title: string;
+  description: string;
+  location: string;
+  jobType: string;
+  requirements: string[];
+  salary: string;
+  applicationDeadline: string;
+  isActive: boolean;
+  responsibilities?: string[];
+  benefits?: string[];
+  workEnvironment?: string;
+  applicationProcess?: string;
+  additionalInformation?: string;
+};
+
 export default function CompanyDetailsPage() {
   // Get the id parameter using useParams hook
   const params = useParams();
@@ -52,6 +68,29 @@ export default function CompanyDetailsPage() {
   const [error, setError] = useState<string | null>(null);
   const [jobsError, setJobsError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'overview' | 'jobs' | 'reviews'>('overview');
+  const [showJobForm, setShowJobForm] = useState(false);
+  const [newRequirement, setNewRequirement] = useState("");
+  const [newResponsibility, setNewResponsibility] = useState("");
+  const [newBenefit, setNewBenefit] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  
+  const [jobFormData, setJobFormData] = useState<JobPostingFormData>({
+    title: "",
+    description: "",
+    location: "",
+    jobType: "Full-time",
+    requirements: [],
+    salary: "",
+    applicationDeadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    isActive: true,
+    responsibilities: [],
+    benefits: [],
+    workEnvironment: "",
+    applicationProcess: "",
+    additionalInformation: ""
+  });
 
   // Fetch company details
   useEffect(() => {
@@ -112,6 +151,163 @@ export default function CompanyDetailsPage() {
     fetchCompanyJobs();
   }, [companyId]);
   
+  // Reset form when opened
+  useEffect(() => {
+    if (showJobForm && company) {
+      setJobFormData({
+        title: "",
+        description: "",
+        location: company.location || "",
+        jobType: company.jobTypes[0] || "Full-time",
+        requirements: [],
+        salary: "",
+        applicationDeadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        isActive: true,
+        responsibilities: [],
+        benefits: [],
+        workEnvironment: "",
+        applicationProcess: "",
+        additionalInformation: ""
+      });
+      setSubmitSuccess(false);
+      setSubmitError(null);
+    }
+  }, [showJobForm, company]);
+  
+  const handleJobFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    
+    setJobFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  
+  const addRequirement = () => {
+    if (newRequirement.trim()) {
+      setJobFormData(prev => ({
+        ...prev, 
+        requirements: [...prev.requirements, newRequirement.trim()]
+      }));
+      setNewRequirement("");
+    }
+  };
+  
+  const removeRequirement = (index: number) => {
+    setJobFormData(prev => ({
+      ...prev,
+      requirements: prev.requirements.filter((_, i) => i !== index)
+    }));
+  };
+  
+  const addResponsibility = () => {
+    if (newResponsibility.trim() && jobFormData.responsibilities) {
+      setJobFormData(prev => ({
+        ...prev, 
+        responsibilities: [...(prev.responsibilities || []), newResponsibility.trim()]
+      }));
+      setNewResponsibility("");
+    }
+  };
+  
+  const removeResponsibility = (index: number) => {
+    if (jobFormData.responsibilities) {
+      setJobFormData(prev => ({
+        ...prev,
+        responsibilities: prev.responsibilities?.filter((_, i) => i !== index)
+      }));
+    }
+  };
+  
+  const addBenefit = () => {
+    if (newBenefit.trim() && jobFormData.benefits) {
+      setJobFormData(prev => ({
+        ...prev, 
+        benefits: [...(prev.benefits || []), newBenefit.trim()]
+      }));
+      setNewBenefit("");
+    }
+  };
+  
+  const removeBenefit = (index: number) => {
+    if (jobFormData.benefits) {
+      setJobFormData(prev => ({
+        ...prev,
+        benefits: prev.benefits?.filter((_, i) => i !== index)
+      }));
+    }
+  };
+  
+  const handleSubmitJobPosting = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!company) return;
+    
+    // Validate the form
+    if (!jobFormData.title || !jobFormData.description || !jobFormData.location || !jobFormData.jobType) {
+      setSubmitError("Please fill in all required fields.");
+      return;
+    }
+    
+    if (jobFormData.requirements.length === 0) {
+      setSubmitError("Please add at least one requirement.");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitError(null);
+    
+    try {
+      // Format the date correctly for API
+      const apiData = {
+        ...jobFormData,
+        companyId: company._id,
+        applicationDeadline: new Date(jobFormData.applicationDeadline).toISOString()
+      };
+      
+      const response = await fetch(`/api/companies/${company._id}/jobs`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(apiData),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to create job posting");
+      }
+      
+      setSubmitSuccess(true);
+      
+      // After successful submission, refresh the jobs list
+      setTimeout(() => {
+        const fetchCompanyJobs = async () => {
+          try {
+            const response = await fetch(`/api/companies/${companyId}/jobs`);
+            
+            if (!response.ok) {
+              throw new Error(`Failed to fetch company jobs (${response.status})`);
+            }
+            
+            const data = await response.json();
+            setJobs(data.jobs || []);
+          } catch (err) {
+            console.error('Error fetching company jobs:', err);
+          }
+        };
+        
+        fetchCompanyJobs();
+      }, 1000);
+      
+    } catch (error) {
+      console.error('Error creating job posting:', error);
+      setSubmitError(error instanceof Error ? error.message : "An unknown error occurred");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // Format date function
   const formatDate = (dateString?: string) => {
     if (!dateString) return '';
@@ -285,6 +481,13 @@ export default function CompanyDetailsPage() {
                   <button className="flex items-center justify-center px-4 py-2 bg-[#3b82f6] hover:bg-[#3b82f6]/90 text-white rounded-md transition-colors">
                     <ExternalLink className="h-4 w-4 mr-2" />
                     Visit Website
+                  </button>
+                  <button 
+                    onClick={() => setShowJobForm(true)} 
+                    className="flex items-center justify-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md transition-colors"
+                  >
+                    <PlusCircle className="h-4 w-4 mr-2" />
+                    Post Job
                   </button>
                   <button className="flex items-center justify-center px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md border border-gray-700 transition-colors">
                     <Share2 className="h-4 w-4 mr-2" />
@@ -770,6 +973,407 @@ export default function CompanyDetailsPage() {
                 </div>
               )}
             </div>
+            
+            {/* Job Posting Form Modal */}
+            <AnimatePresence>
+              {showJobForm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    className="bg-gray-900 rounded-xl border border-gray-800 w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+                  >
+                    <div className="sticky top-0 z-10 flex items-center justify-between p-5 border-b border-gray-800 bg-gray-900">
+                      <h2 className="text-xl font-semibold text-white">Post a New Job at {company.name}</h2>
+                      <button 
+                        onClick={() => setShowJobForm(false)}
+                        className="p-1 rounded-full hover:bg-gray-800 transition-colors"
+                      >
+                        <X className="h-5 w-5 text-gray-400" />
+                      </button>
+                    </div>
+                    
+                    {submitSuccess ? (
+                      <div className="p-6 flex flex-col items-center justify-center">
+                        <div className="w-16 h-16 bg-emerald-600/20 rounded-full flex items-center justify-center mb-4">
+                          <CheckCircle2 className="h-10 w-10 text-emerald-500" />
+                        </div>
+                        <h3 className="text-xl font-medium text-white mb-2">Job Posted Successfully!</h3>
+                        <p className="text-gray-400 text-center mb-6">
+                          Your job listing has been added and is now visible to potential candidates.
+                        </p>
+                        <div className="flex gap-3">
+                          <button
+                            onClick={() => {
+                              setShowJobForm(false);
+                              setActiveTab('jobs');
+                            }}
+                            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md transition-colors"
+                          >
+                            View Job Listings
+                          </button>
+                          <button
+                            onClick={() => {
+                              setJobFormData({
+                                title: "",
+                                description: "",
+                                location: company.location || "",
+                                jobType: company.jobTypes[0] || "Full-time",
+                                requirements: [],
+                                salary: "",
+                                applicationDeadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                                isActive: true,
+                                responsibilities: [],
+                                benefits: [],
+                                workEnvironment: "",
+                                applicationProcess: "",
+                                additionalInformation: ""
+                              });
+                              setSubmitSuccess(false);
+                            }}
+                            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md border border-gray-700 transition-colors"
+                          >
+                            Post Another Job
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <form onSubmit={handleSubmitJobPosting} className="p-6 space-y-6">
+                        {submitError && (
+                          <div className="p-4 bg-red-900/30 border border-red-800 rounded-lg">
+                            <p className="text-red-200 text-sm">{submitError}</p>
+                          </div>
+                        )}
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          {/* Basic Information */}
+                          <div className="space-y-4 md:col-span-2">
+                            <h3 className="font-medium text-white border-b border-gray-800 pb-2">Basic Information</h3>
+                            
+                            <div>
+                              <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-1">
+                                Job Title <span className="text-red-400">*</span>
+                              </label>
+                              <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                value={jobFormData.title}
+                                onChange={handleJobFormChange}
+                                required
+                                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                                placeholder="e.g. Senior Software Engineer"
+                              />
+                            </div>
+                            
+                            <div>
+                              <label htmlFor="description" className="block text-sm font-medium text-gray-300 mb-1">
+                                Job Description <span className="text-red-400">*</span>
+                              </label>
+                              <textarea
+                                id="description"
+                                name="description"
+                                value={jobFormData.description}
+                                onChange={handleJobFormChange}
+                                required
+                                rows={5}
+                                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                                placeholder="Provide a detailed description of the job..."
+                              />
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <label htmlFor="location" className="block text-sm font-medium text-gray-300 mb-1">
+                              Location <span className="text-red-400">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              id="location"
+                              name="location"
+                              value={jobFormData.location}
+                              onChange={handleJobFormChange}
+                              required
+                              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                              placeholder="e.g. San Francisco, CA"
+                            />
+                          </div>
+                          
+                          <div>
+                            <label htmlFor="jobType" className="block text-sm font-medium text-gray-300 mb-1">
+                              Job Type <span className="text-red-400">*</span>
+                            </label>
+                            <select
+                              id="jobType"
+                              name="jobType"
+                              value={jobFormData.jobType}
+                              onChange={handleJobFormChange}
+                              required
+                              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                            >
+                              {company.jobTypes.map(type => (
+                                <option key={type} value={type}>{type}</option>
+                              ))}
+                            </select>
+                          </div>
+                          
+                          <div>
+                            <label htmlFor="salary" className="block text-sm font-medium text-gray-300 mb-1">
+                              Salary Range
+                            </label>
+                            <input
+                              type="text"
+                              id="salary"
+                              name="salary"
+                              value={jobFormData.salary}
+                              onChange={handleJobFormChange}
+                              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                              placeholder="e.g. $120K - $150K per year"
+                            />
+                          </div>
+                          
+                          <div>
+                            <label htmlFor="applicationDeadline" className="block text-sm font-medium text-gray-300 mb-1">
+                              Application Deadline
+                            </label>
+                            <div className="relative">
+                              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <Calendar className="h-4 w-4 text-gray-400" />
+                              </div>
+                              <input
+                                type="date"
+                                id="applicationDeadline"
+                                name="applicationDeadline"
+                                value={jobFormData.applicationDeadline}
+                                onChange={handleJobFormChange}
+                                className="w-full pl-10 pr-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                              />
+                            </div>
+                          </div>
+                          
+                          {/* Requirements Section */}
+                          <div className="md:col-span-2 space-y-4">
+                            <h3 className="font-medium text-white border-b border-gray-800 pb-2">Requirements <span className="text-red-400">*</span></h3>
+                            
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                value={newRequirement}
+                                onChange={(e) => setNewRequirement(e.target.value)}
+                                className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                                placeholder="Add a requirement"
+                                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addRequirement())}
+                              />
+                              <button
+                                type="button"
+                                onClick={addRequirement}
+                                className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md border border-gray-700 transition-colors"
+                              >
+                                Add
+                              </button>
+                            </div>
+                            
+                            <div className="space-y-2">
+                              {jobFormData.requirements.length > 0 ? (
+                                jobFormData.requirements.map((req, index) => (
+                                  <div key={index} className="flex items-center justify-between px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-md">
+                                    <span className="text-sm text-gray-300">{req}</span>
+                                    <button
+                                      type="button"
+                                      onClick={() => removeRequirement(index)}
+                                      className="p-1 hover:bg-gray-700 rounded-full transition-colors"
+                                    >
+                                      <X className="h-4 w-4 text-gray-400" />
+                                    </button>
+                                  </div>
+                                ))
+                              ) : (
+                                <p className="text-sm text-gray-500 italic">No requirements added yet</p>
+                              )}
+                            </div>
+                          </div>
+                          
+                          {/* Responsibilities Section */}
+                          <div className="md:col-span-2 space-y-4">
+                            <h3 className="font-medium text-white border-b border-gray-800 pb-2">Responsibilities (Optional)</h3>
+                            
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                value={newResponsibility}
+                                onChange={(e) => setNewResponsibility(e.target.value)}
+                                className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                                placeholder="Add a responsibility"
+                                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addResponsibility())}
+                              />
+                              <button
+                                type="button"
+                                onClick={addResponsibility}
+                                className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md border border-gray-700 transition-colors"
+                              >
+                                Add
+                              </button>
+                            </div>
+                            
+                            <div className="space-y-2">
+                              {jobFormData.responsibilities && jobFormData.responsibilities.length > 0 ? (
+                                jobFormData.responsibilities.map((resp, index) => (
+                                  <div key={index} className="flex items-center justify-between px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-md">
+                                    <span className="text-sm text-gray-300">{resp}</span>
+                                    <button
+                                      type="button"
+                                      onClick={() => removeResponsibility(index)}
+                                      className="p-1 hover:bg-gray-700 rounded-full transition-colors"
+                                    >
+                                      <X className="h-4 w-4 text-gray-400" />
+                                    </button>
+                                  </div>
+                                ))
+                              ) : (
+                                <p className="text-sm text-gray-500 italic">No responsibilities added yet</p>
+                              )}
+                            </div>
+                          </div>
+                          
+                          {/* Benefits Section */}
+                          <div className="md:col-span-2 space-y-4">
+                            <h3 className="font-medium text-white border-b border-gray-800 pb-2">Benefits (Optional)</h3>
+                            
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                value={newBenefit}
+                                onChange={(e) => setNewBenefit(e.target.value)}
+                                className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                                placeholder="Add a benefit"
+                                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addBenefit())}
+                              />
+                              <button
+                                type="button"
+                                onClick={addBenefit}
+                                className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md border border-gray-700 transition-colors"
+                              >
+                                Add
+                              </button>
+                            </div>
+                            
+                            <div className="space-y-2">
+                              {jobFormData.benefits && jobFormData.benefits.length > 0 ? (
+                                jobFormData.benefits.map((benefit, index) => (
+                                  <div key={index} className="flex items-center justify-between px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-md">
+                                    <span className="text-sm text-gray-300">{benefit}</span>
+                                    <button
+                                      type="button"
+                                      onClick={() => removeBenefit(index)}
+                                      className="p-1 hover:bg-gray-700 rounded-full transition-colors"
+                                    >
+                                      <X className="h-4 w-4 text-gray-400" />
+                                    </button>
+                                  </div>
+                                ))
+                              ) : (
+                                <p className="text-sm text-gray-500 italic">No benefits added yet</p>
+                              )}
+                            </div>
+                          </div>
+                          
+                          {/* Additional Fields */}
+                          <div className="md:col-span-2 space-y-4">
+                            <h3 className="font-medium text-white border-b border-gray-800 pb-2">Additional Information (Optional)</h3>
+                            
+                            <div>
+                              <label htmlFor="workEnvironment" className="block text-sm font-medium text-gray-300 mb-1">
+                                Work Environment
+                              </label>
+                              <input
+                                type="text"
+                                id="workEnvironment"
+                                name="workEnvironment"
+                                value={jobFormData.workEnvironment || ""}
+                                onChange={handleJobFormChange}
+                                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                                placeholder="e.g. On-site with occasional remote flexibility"
+                              />
+                            </div>
+                            
+                            <div>
+                              <label htmlFor="applicationProcess" className="block text-sm font-medium text-gray-300 mb-1">
+                                Application Process
+                              </label>
+                              <textarea
+                                id="applicationProcess"
+                                name="applicationProcess"
+                                value={jobFormData.applicationProcess || ""}
+                                onChange={handleJobFormChange}
+                                rows={3}
+                                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                                placeholder="Describe the application process..."
+                              />
+                            </div>
+                            
+                            <div>
+                              <label htmlFor="additionalInformation" className="block text-sm font-medium text-gray-300 mb-1">
+                                Additional Information
+                              </label>
+                              <textarea
+                                id="additionalInformation"
+                                name="additionalInformation"
+                                value={jobFormData.additionalInformation || ""}
+                                onChange={handleJobFormChange}
+                                rows={3}
+                                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
+                                placeholder="Any other relevant information..."
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-4 pt-4 border-t border-gray-800">
+                          <div className="flex items-center">
+                            <input
+                              type="checkbox"
+                              id="isActive"
+                              name="isActive"
+                              checked={jobFormData.isActive}
+                              onChange={(e) => setJobFormData(prev => ({ ...prev, isActive: e.target.checked }))}
+                              className="h-4 w-4 rounded border-gray-700 bg-gray-800 text-[#3b82f6] focus:ring-[#3b82f6] focus:ring-offset-0"
+                            />
+                            <label htmlFor="isActive" className="ml-2 text-sm text-gray-300">
+                              Make job listing active immediately
+                            </label>
+                          </div>
+                          
+                          <div className="flex-1 flex justify-end gap-3">
+                            <button
+                              type="button"
+                              onClick={() => setShowJobForm(false)}
+                              className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md border border-gray-700 transition-colors"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="submit"
+                              disabled={isSubmitting}
+                              className="px-5 py-2 bg-[#3b82f6] hover:bg-[#3b82f6]/90 text-white rounded-md transition-colors flex items-center justify-center min-w-[100px] disabled:opacity-70 disabled:cursor-not-allowed"
+                            >
+                              {isSubmitting ? (
+                                <>
+                                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                  Posting...
+                                </>
+                              ) : (
+                                "Post Job"
+                              )}
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    )}
+                  </motion.div>
+                </div>
+              )}
+            </AnimatePresence>
           </>
         ) : null}
       </div>
