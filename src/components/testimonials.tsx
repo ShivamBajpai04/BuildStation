@@ -29,10 +29,10 @@ export default function Testimonials() {
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
-              What Our Users Say
+              What Our Developers Say
             </h2>
             <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-              Hear from job seekers and companies who use our platform
+              Please use us to make your career successful.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
