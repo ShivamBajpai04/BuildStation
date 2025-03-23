@@ -36,15 +36,18 @@ export default function Navbar() {
             <UserButton />
           </SignedIn>
           <SignedOut>
-            <div>
-              <Button asChild variant="ghost" size="sm">
-                <Link href="/sign-in">Log in</Link>
-              </Button>
-            </div>
-            <div>
-              <Button asChild size="sm">
-                <Link href="/sign-up">Sign up</Link>
-              </Button>
+            <div className="flex items-center gap-2">
+              <Link href="/sign-in">
+                <Button variant="ghost" size="sm" asChild>
+                  <span>Log in</span>
+                </Button>
+              </Link>
+
+              <Link href="/sign-up">
+                <Button size="sm" asChild>
+                  <span>Sign up</span>
+                </Button>
+              </Link>
             </div>
           </SignedOut>
         </div>

@@ -72,7 +72,7 @@ function SocialProof() {
           variants={itemVariants}
           className="text-2xl md:text-3xl font-medium text-white/80"
         >
-          Trusted by innovative companies worldwide
+          Will be trusted by innovative companies worldwide
         </motion.h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
