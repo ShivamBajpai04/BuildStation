@@ -8,35 +8,25 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2 md:gap-4">
-          <Link href="/" className="font-bold text-xl md:text-2xl">
-            BlockBlockJob
-          </Link>
+          <Link href="/" className="font-bold text-xl md:text-2xl">BlockBlockJob</Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link
               href="/"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
-              Home
-            </Link>
+            >Home</Link>
             <Link
               href="/how-it-works"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
-              How It Works
-            </Link>
+            >How It Works</Link>
             <Link
               href="/our-team"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
-              Our Team
-            </Link>
+            >Our Team</Link>
             <SignedIn>
               <Link
                 href="/mainpage"
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-              >
-                Main Page
-              </Link>
+              >Main Page</Link>
             </SignedIn>
           </nav>
         </div>
@@ -46,18 +36,19 @@ export default function Navbar() {
             <UserButton />
           </SignedIn>
           <SignedOut>
-            <Link
-              href="/sign-in"
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/sign-up"
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs"
-            >
-              Sign up
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link href="/sign-in">
+                <Button variant="ghost" size="sm" asChild>
+                  <span>Log in</span>
+                </Button>
+              </Link>
+
+              <Link href="/sign-up">
+                <Button size="sm" asChild>
+                  <span>Sign up</span>
+                </Button>
+              </Link>
+            </div>
           </SignedOut>
         </div>
       </div>

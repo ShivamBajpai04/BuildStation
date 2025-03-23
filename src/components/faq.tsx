@@ -11,24 +11,24 @@ export default function FAQ() {
 
   const faqs = [
     {
-      question: "How does your AI matching technology work?",
-      answer: "Our AI matching technology uses advanced machine learning algorithms to analyze skills, experience, and cultural fit factors to create optimal matches between candidates and opportunities. It continuously learns from successful placements to improve future matching accuracy."
+      question: "How does your blockchain-powered job platform work?",
+      answer: "Our platform leverages blockchain technology to create a secure and transparent job marketplace. Employers can mint job opportunities as NFTs, which verifiably showcase the position details and requirements. Job seekers can browser and apply to these blockchain-verified job listings, ensuring authenticity and reducing fraud in the hiring process. Also any user can also list any good job on our platform and anyone can apply to it."
     },
     {
-      question: "Is my data secure on your platform?",
-      answer: "Yes, we take data security very seriously. All data is encrypted both in transit and at rest. We use industry-leading security practices and are compliant with GDPR, CCPA and other relevant regulations. Your information is never shared without explicit consent."
+      question: "What are NFT job listings and how do they benefit employers?",
+      answer: "NFT job listings are blockchain-verified digital certificates that represent your job opportunities. Unlike traditional job postings, these listings cannot be falsified and provide instant verification to candidates. As an employer, your job listings gain visibility and credibility, and you maintain full ownership of your recruitment process on the blockchain."
     },
     {
-      question: "How long is the free trial period?",
-      answer: "Our free trial lasts for 14 days, giving you full access to all features of the platform. No credit card is required to start, and you can cancel anytime during the trial without any charges."
+      question: "How secure is my data on the blockchain?",
+      answer: "Extremely secure. Our platform utilizes advanced cryptographic techniques to protect your data on the blockchain. While your job listings are publicly accessible for visibility purposes, sensitive company information remains encrypted and controlled by you. You decide exactly what information to share with potential candidates, and all transactions are secured by smart contracts."
     },
     {
-      question: "Can I integrate with my existing HR systems?",
-      answer: "Absolutely! Our platform provides robust API connections and pre-built integrations with most popular HR and ATS systems including Workday, SAP SuccessFactors, BambooHR, Greenhouse, and many others. Our team can also build custom integrations if needed."
+      question: "What fees are associated with minting job NFTs?",
+      answer: "Employers pay a small fee in cryptocurrency to mint job positions, with premium placement options available. Basic job NFT minting includes standard templates, with premium templates and enhanced visibility services available for a nominal fee. All transactions use our native token, which helps reduce gas fees and provides additional platform benefits to active users."
     },
     {
-      question: "What support options are available?",
-      answer: "We offer 24/7 customer support through chat, email, and phone. Enterprise customers receive dedicated account management with personalized onboarding and training. Our knowledge base and video tutorials are available to all users regardless of plan level."
+      question: "Do I need technical blockchain knowledge to use the platform?",
+      answer: "Not at all! We've designed our platform to be user-friendly for everyone, regardless of technical expertise. Our intuitive interface handles all the blockchain complexity behind the scenes. You can easily create a wallet, mint job NFTs, and interact with candidates using familiar web interfaces without needing to understand the underlying blockchain technology."
     }
   ];
 
@@ -40,10 +40,10 @@ export default function FAQ() {
       >
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-white">
-            Frequently Asked <GradientText text="Questions" gradient="from-[#3b82f6] to-[#c89d4a]" />
+            Frequently Asked <GradientText text="Questions" gradient="from-[#3b82f6] via-[#c89d4a] to-[#ab5137]" animate interactive />
           </h2>
           <p className="text-white/70 text-lg">
-            Everything you need to know about our platform and services.
+            Everything you need to know about our blockchain-powered NFT job platform.
           </p>
         </div>
 

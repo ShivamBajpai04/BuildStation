@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react";
 import Footer from "@/components/footer";
 import Image from "next/image";
-import { Linkedin, Twitter, Mail, ArrowRight, X, Sparkles, Zap, BarChart, Search, Box, Briefcase } from "lucide-react";
+import { Linkedin, Github, Mail, ArrowRight, X, Sparkles, Zap, BarChart, Search, Box, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { ThemeEffect } from "@/components/theme-effect";
 import { motion } from "framer-motion";
 import { EnhancedSection } from "@/components/enhanced-layout";
 import { GrainyTexture } from "@/components/effects/grainy-texture";
 import GrainEffect from "@/components/grain-effect";
-import { ParticleBackground } from "@/components/effects/particle-background";
+
 
 // Define the TeamMember type to fix type errors
 interface TeamMember {
@@ -20,7 +20,7 @@ interface TeamMember {
   image: string;
   social: {
     linkedin: string;
-    twitter: string;
+    github: string;
     email: string;
   };
   funFact: string;
@@ -50,139 +50,56 @@ export default function TeamPage() {
 
   const teamMembers = [
     {
-      name: "Sarah Johnson",
+      name: "Shivam Mahajan",
       role: "CEO & Co-Founder",
-      bio: "Sarah has over 15 years of experience in AI and machine learning. Previously, she led AI initiatives at Google and has a PhD in Computer Science from Stanford.",
-      image: "/placeholder.svg?height=400&width=400",
+      bio: "",
+      image: "/avatars/sm.jpg",
       social: {
-        linkedin: "#",
-        twitter: "#",
-        email: "sarah@example.com",
+        linkedin: "https://www.linkedin.com/in/mahajanshivam/",
+        github: "https://github.com/smresponsibilities",
+        email: "shivammahajan.mail.com",
       },
       funFact: "Can solve a Rubik&apos;s cube in under a minute",
       quote:
         "AI isn&apos;t just about automation—it&apos;s about augmenting human potential.",
       department: "leadership",
       color: "from-blue-500 to-purple-500",
-      emoji: "✨",
+      emoji: "♟️",
     },
     {
-      name: "Michael Chen",
+      name: "Shivam Bajpai",
       role: "CTO & Co-Founder",
-      bio: "Michael is a former senior engineer at Microsoft with expertise in cloud infrastructure and AI systems. He holds an MS in Computer Engineering from MIT.",
-      image: "/placeholder.svg?height=400&width=400",
+      bio: "",
+      image: "/avatars/sb.jpg",
       social: {
-        linkedin: "#",
-        twitter: "#",
-        email: "michael@example.com",
+        linkedin: "https://www.linkedin.com/in/shivam-bajpai-1497091b4/",
+        github: "https://github.com/ShivamBajpai04",
+        email: "shivambajpai04@gmail.com",
       },
       funFact: "Builds custom mechanical keyboards as a hobby",
       quote:
-        "The best code is no code at all. The second best is code that&apos;s so clear it speaks for itself.",
-      department: "leadership",
+        "The best code is no code at all. The second best is code that's so clear it speaks for itself.",
+      department: "technology",
       color: "from-green-500 to-[#3b82f6]",
       emoji: "🚀",
     },
     {
-      name: "Emily Rodriguez",
-      role: "Head of Product",
-      bio: "Emily brings 10 years of product management experience from Amazon. She&apos;s passionate about creating intuitive user experiences powered by AI.",
-      image: "/placeholder.svg?height=400&width=400",
+      name: "Shivanshu",
+      role: "CO & Co-Founder",
+      bio: "",
+      image: "/avatars/s.jpg",
       social: {
-        linkedin: "#",
-        twitter: "#",
-        email: "emily@example.com",
+        linkedin: "https://www.linkedin.com/in/shivanshuk28/",
+        github: "https://github.com/Shivanshuk28",
+        email: "2contactshivanshu@gmail.com",
       },
       funFact: "Former competitive chess player",
       quote:
         "Great products don&apos;t just solve problems—they create possibilities.",
       department: "product",
       color: "from-orange-500 to-red-500",
-      emoji: "♟️",
-    },
-    {
-      name: "David Kim",
-      role: "Lead AI Engineer",
-      bio: "David specializes in natural language processing and machine learning algorithms. He previously worked at OpenAI and has published numerous research papers.",
-      image: "/placeholder.svg?height=400&width=400",
-      social: {
-        linkedin: "#",
-        twitter: "#",
-        email: "david@example.com",
-      },
-      funFact: "Speaks five languages fluently",
-      quote:
-        "The future of AI is not just smarter machines, but more empathetic ones.",
-      department: "engineering",
-      color: "from-purple-500 to-indigo-500",
-      emoji: "🤖",
-    },
-    {
-      name: "Priya Patel",
-      role: "Head of Customer Success",
-      bio: "Priya ensures our customers get the most value from our platform. With a background in customer experience at Salesforce, she&apos;s dedicated to client satisfaction.",
-      image: "/placeholder.svg?height=400&width=400",
-      social: {
-        linkedin: "#",
-        twitter: "#",
-        email: "priya@example.com",
-      },
-      funFact: "Certified yoga instructor",
-      quote:
-        "Customer success is about building relationships, not just solving tickets.",
-      department: "customer",
-      color: "from-pink-500 to-rose-500",
-      emoji: "🧘‍♀️",
-    },
-    {
-      name: "James Wilson",
-      role: "VP of Sales",
-      bio: "James has a proven track record of scaling B2B SaaS companies. He previously led sales teams at HubSpot and Zoom, driving significant revenue growth.",
-      image: "/placeholder.svg?height=400&width=400",
-      social: {
-        linkedin: "#",
-        twitter: "#",
-        email: "james@example.com",
-      },
-      funFact: "Former professional basketball player",
-      quote:
-        "Sales isn&apos;t about convincing—it&apos;s about connecting the right solutions to the right problems.",
-      department: "sales",
-      color: "from-yellow-500 to-amber-500",
-      emoji: "🏀",
-    },
-    {
-      name: "Sophia Martinez",
-      role: "Head of Marketing",
-      bio: "Sophia is a strategic marketer with experience at leading tech companies. She specializes in product marketing, brand strategy, and growth marketing.",
-      image: "/placeholder.svg?height=400&width=400",
-      social: {
-        linkedin: "#",
-        twitter: "#",
-        email: "sophia@example.com",
-      },
-      funFact: "Published novelist in her spare time",
-      quote: "Great marketing tells a story that people want to be part of.",
-      department: "marketing",
-      color: "from-cyan-500 to-blue-500",
-      emoji: "📚",
-    },
-    {
-      name: "Alex Thompson",
-      role: "UX/UI Design Lead",
-      bio: "Alex leads our design team with a focus on creating beautiful, intuitive interfaces. He previously designed products at Airbnb and Figma.",
-      image: "/placeholder.svg?height=400&width=400",
-      social: {
-        linkedin: "#",
-        twitter: "#",
-        email: "alex@example.com",
-      },
-      funFact: "Collects vintage movie posters",
-      quote: "Design is not just what it looks like. Design is how it works.",
-      department: "design",
-      color: "from-violet-500 to-purple-500",
-      emoji: "🎨",
-    },
+      emoji: "✨",
+    }
   ];
 
   return (
@@ -330,7 +247,7 @@ export default function TeamPage() {
           </div>
 
           {/* Modern Card Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.name}
@@ -376,8 +293,8 @@ export default function TeamPage() {
                         <Link href={member.social.linkedin} className="text-muted-foreground hover:text-primary transition-colors">
                           <Linkedin className="h-4 w-4" />
                         </Link>
-                        <Link href={member.social.twitter} className="text-muted-foreground hover:text-primary transition-colors">
-                          <Twitter className="h-4 w-4" />
+                        <Link href={member.social.github} className="text-muted-foreground hover:text-primary transition-colors">
+                          <Github className="h-4 w-4" />
                         </Link>
                       </div>
                     </div>
@@ -658,10 +575,10 @@ export default function TeamPage() {
                       <Linkedin className="h-5 w-5" />
                     </Link>
                     <Link
-                      href={selectedMember.social.twitter}
+                      href={selectedMember.social.github}
                       className="text-muted-foreground hover:text-primary transition-colors duration-200"
                     >
-                      <Twitter className="h-5 w-5" />
+                      <Github className="h-5 w-5" />
                     </Link>
                     <Link
                       href={`mailto:${selectedMember.social.email}`}
