@@ -1,25 +1,25 @@
 import React from "react";
-// import Image from "next/image";
+import Image from "next/image";
 
 export default function Testimonials() {
   const testimonials = [
     {
-      quote: "I found my dream job within a week of using this platform. The NFT I earned was a nice bonus too!",
-      author: "Sarah Johnson",
-      role: "Software Developer",
-      avatar: "/avatars/sarah.jpg"
+      quote: "I will be successful in my career if this platform will become successful.",
+      author: "Shivam Mahajan",
+      role: "Developer at BlockBlockJob",
+      avatar: "/avatars/sm.jpg"
     },
     {
-      quote: "As a recruiter, this platform has saved me countless hours by eliminating duplicate job postings.",
-      author: "David Chen",
-      role: "HR Manager at TechCorp",
-      avatar: "/avatars/david.jpg"
+      quote: "The platform is easy to use and provides a great user experience because I made it.",
+      author: "Shivam Bajpai",
+      role: "Developer at BlockBlockJob",
+      avatar: "/avatars/sb.jpg"
     },
     {
-      quote: "The verification system gives me confidence that I'm applying to legitimate job openings.",
-      author: "Michael Smith",
-      role: "UX Designer",
-      avatar: "/avatars/michael.jpg"
+      quote: "The platform is also feature packed because I made it.",
+      author: "Shivanshu",
+      role: "Developer at BlockBlockJob",
+      avatar: "/avatars/s.jpg"
     }
   ];
 
@@ -42,7 +42,7 @@ export default function Testimonials() {
                 <p className="text-gray-500 dark:text-gray-400">{testimonial.quote}</p>
                 <div className="flex flex-col items-center space-y-2">
                   <div className="relative h-12 w-12 rounded-full bg-gray-200">
-                    {/* <Image src={testimonial.avatar} alt={testimonial.author} fill className="rounded-full" /> */}
+                    <Image src={testimonial.avatar} alt={testimonial.author} fill className="rounded-full" />
                   </div>
                   <div>
                     <h3 className="text-sm font-medium">{testimonial.author}</h3>
