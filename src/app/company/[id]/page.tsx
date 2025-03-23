@@ -24,38 +24,42 @@ type Company = {
   updatedAt?: string;
 };
 
-// Sample job positions for demonstration
-type JobPosition = {
-  id: string;
+// Job type
+type Job = {
+  _id: string;
+  companyId: string;
   title: string;
-  department: string;
+  description: string;
   location: string;
-  type: string;
-  experience: string;
   salary: string;
-  postedAt: string;
+  jobType: string;
+  requirements: string[];
+  applicationDeadline?: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export default function CompanyDetailsPage() {
-  // Get the id parameter using useParams hook instead of props
+  // Get the id parameter using useParams hook
   const params = useParams();
   const companyId = params.id as string;
   
   const [company, setCompany] = useState<Company | null>(null);
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingJobs, setIsLoadingJobs] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [jobsError, setJobsError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'overview' | 'jobs' | 'reviews'>('overview');
-  
-  // Mock job positions (in a real app, these would come from an API)
-  const [jobPositions, setJobPositions] = useState<JobPosition[]>([]);
 
+  // Fetch company details
   useEffect(() => {
     const fetchCompanyDetails = async () => {
       setIsLoading(true);
       setError(null);
       
       try {
-        // Use the params.id from useParams()
         const response = await fetch(`/api/companies/${companyId}`);
         
         if (!response.ok) {
@@ -67,9 +71,6 @@ export default function CompanyDetailsPage() {
         
         const data = await response.json();
         setCompany(data);
-        
-        // Generate some mock job positions based on the company
-        generateMockJobPositions(data);
       } catch (err) {
         console.error('Error fetching company details:', err);
         setError(err instanceof Error ? err.message : 'An unknown error occurred');
@@ -82,67 +83,34 @@ export default function CompanyDetailsPage() {
       fetchCompanyDetails();
     }
   }, [companyId]);
-  
-  // Function to generate mock job positions
-  const generateMockJobPositions = (company: Company) => {
-    const departments = [
-      'Engineering', 'Marketing', 'Sales', 'Product', 'Design', 
-      'Customer Support', 'Finance', 'Operations', 'HR', 'Legal'
-    ];
-    
-    const titles = [
-      'Senior %s Developer', 'Junior %s Specialist', '%s Manager', 
-      'Lead %s Designer', '%s Analyst', 'Head of %s', '%s Coordinator',
-      '%s Director', '%s Engineer', '%s Administrator'
-    ];
-    
-    const technologies = [
-      'React', 'Node.js', 'Python', 'Java', 'DevOps', 'UX/UI', 'Data',
-      'AI/ML', 'Cloud', 'Frontend', 'Backend', 'Fullstack', 'Mobile'
-    ];
-    
-    const experienceLevels = [
-      '1-3 years', '3-5 years', '5+ years', '2+ years', 
-      'Entry Level', 'Mid Level', 'Senior Level'
-    ];
-    
-    const salaryRanges = [
-      '₹5-8 LPA', '₹8-12 LPA', '₹12-18 LPA', '₹18-25 LPA', 
-      '₹25-35 LPA', '₹35+ LPA', 'As per industry standards'
-    ];
-    
-    const mockJobs: JobPosition[] = [];
-    
-    // Generate a number of positions based on the company's openPositions
-    const positionsToGenerate = Math.min(company.openPositions, 8);
-    
-    for (let i = 0; i < positionsToGenerate; i++) {
-      const department = departments[Math.floor(Math.random() * departments.length)];
-      const titleTemplate = titles[Math.floor(Math.random() * titles.length)];
-      const technology = technologies[Math.floor(Math.random() * technologies.length)];
-      const title = titleTemplate.replace('%s', technology);
-      const experience = experienceLevels[Math.floor(Math.random() * experienceLevels.length)];
-      const salary = salaryRanges[Math.floor(Math.random() * salaryRanges.length)];
+
+  // Fetch jobs for the company
+  useEffect(() => {
+    const fetchCompanyJobs = async () => {
+      if (!companyId) return;
       
-      // Random date within the last 30 days
-      const postedDaysAgo = Math.floor(Math.random() * 30) + 1;
-      const postedDate = new Date();
-      postedDate.setDate(postedDate.getDate() - postedDaysAgo);
+      setIsLoadingJobs(true);
+      setJobsError(null);
       
-      mockJobs.push({
-        id: `job-${i + 1}`,
-        title,
-        department,
-        location: company.location,
-        type: company.jobTypes[Math.floor(Math.random() * company.jobTypes.length)],
-        experience,
-        salary,
-        postedAt: postedDate.toISOString()
-      });
-    }
+      try {
+        const response = await fetch(`/api/companies/${companyId}/jobs`);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch company jobs (${response.status})`);
+        }
+        
+        const data = await response.json();
+        setJobs(data.jobs || []);
+      } catch (err) {
+        console.error('Error fetching company jobs:', err);
+        setJobsError(err instanceof Error ? err.message : 'Failed to load job listings');
+      } finally {
+        setIsLoadingJobs(false);
+      }
+    };
     
-    setJobPositions(mockJobs);
-  };
+    fetchCompanyJobs();
+  }, [companyId]);
   
   // Format date function
   const formatDate = (dateString?: string) => {
@@ -165,6 +133,42 @@ export default function CompanyDetailsPage() {
     if (diffDays === 0) return 'Today';
     if (diffDays === 1) return 'Yesterday';
     return `${diffDays} days ago`;
+  };
+
+  // Function to get department from job title
+  const getDepartmentFromTitle = (title: string): string => {
+    const departments = {
+      'Software': 'Engineering',
+      'Developer': 'Engineering',
+      'Engineer': 'Engineering',
+      'DevOps': 'Engineering',
+      'QA': 'Engineering',
+      'Product': 'Product',
+      'UX': 'Design',
+      'UI': 'Design',
+      'Designer': 'Design',
+      'Data': 'Data Science',
+      'Marketing': 'Marketing',
+      'Sales': 'Sales',
+      'Customer': 'Customer Support',
+      'Support': 'Customer Support',
+      'HR': 'HR',
+      'Human': 'HR',
+      'Finance': 'Finance',
+      'Legal': 'Legal',
+      'Operations': 'Operations',
+      'Manager': 'Management',
+      'Director': 'Management',
+      'Project': 'Project Management',
+    };
+
+    for (const [keyword, department] of Object.entries(departments)) {
+      if (title.includes(keyword)) {
+        return department;
+      }
+    }
+    
+    return 'General';
   };
 
   return (
@@ -316,7 +320,7 @@ export default function CompanyDetailsPage() {
                         : 'border-transparent text-gray-400 hover:text-gray-300'
                     }`}
                   >
-                    Jobs ({company.openPositions})
+                    Jobs ({jobs.length || company.openPositions})
                   </button>
                   <button 
                     onClick={() => setActiveTab('reviews')}
@@ -365,39 +369,56 @@ export default function CompanyDetailsPage() {
                       </div>
                       
                       <div className="space-y-4">
-                        {jobPositions.slice(0, 3).map(job => (
-                          <motion.div 
-                            key={job.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="p-4 bg-gray-900/50 border border-gray-800 rounded-lg hover:border-gray-700 transition-colors"
-                          >
-                            <h3 className="font-medium text-white mb-2">{job.title}</h3>
-                            <div className="flex flex-wrap gap-y-2 text-sm text-gray-400 mb-3">
-                              <div className="flex items-center mr-4">
-                                <Building className="h-4 w-4 mr-1.5" />
-                                {job.department}
+                        {isLoadingJobs ? (
+                          <div className="flex items-center justify-center py-8">
+                            <div className="inline-block animate-spin h-6 w-6 border-3 border-[#3b82f6] border-t-transparent rounded-full mr-3"></div>
+                            <p className="text-gray-400">Loading job listings...</p>
+                          </div>
+                        ) : jobsError ? (
+                          <div className="p-6 bg-red-900/20 border border-red-800/30 rounded-lg">
+                            <p className="text-red-200 text-center">{jobsError}</p>
+                          </div>
+                        ) : jobs.length === 0 ? (
+                          <div className="p-6 bg-gray-800/30 border border-gray-700 rounded-lg text-center">
+                            <p className="text-gray-400">No job listings available at the moment.</p>
+                          </div>
+                        ) : (
+                          jobs.slice(0, 3).map(job => (
+                            <motion.div 
+                              key={job._id}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="p-4 bg-gray-900/50 border border-gray-800 rounded-lg hover:border-gray-700 transition-colors"
+                            >
+                              <h3 className="font-medium text-white mb-2">{job.title}</h3>
+                              <div className="flex flex-wrap gap-y-2 text-sm text-gray-400 mb-3">
+                                <div className="flex items-center mr-4">
+                                  <Building className="h-4 w-4 mr-1.5" />
+                                  {getDepartmentFromTitle(job.title)}
+                                </div>
+                                <div className="flex items-center mr-4">
+                                  <MapPin className="h-4 w-4 mr-1.5" />
+                                  {job.location}
+                                </div>
+                                <div className="flex items-center mr-4">
+                                  <Clock className="h-4 w-4 mr-1.5" />
+                                  {job.jobType}
+                                </div>
+                                {job.applicationDeadline && (
+                                  <div className="flex items-center">
+                                    <Users className="h-4 w-4 mr-1.5" />
+                                    Deadline: {formatDate(job.applicationDeadline)}
+                                  </div>
+                                )}
                               </div>
-                              <div className="flex items-center mr-4">
-                                <MapPin className="h-4 w-4 mr-1.5" />
-                                {job.location}
+                              <div className="flex justify-between items-center">
+                                <div className="text-sm font-medium text-[#3b82f6]">{job.salary}</div>
+                                <div className="text-xs text-gray-500">Posted {daysAgo(job.createdAt)}</div>
                               </div>
-                              <div className="flex items-center mr-4">
-                                <Clock className="h-4 w-4 mr-1.5" />
-                                {job.type}
-                              </div>
-                              <div className="flex items-center">
-                                <Users className="h-4 w-4 mr-1.5" />
-                                {job.experience}
-                              </div>
-                            </div>
-                            <div className="flex justify-between items-center">
-                              <div className="text-sm font-medium text-[#3b82f6]">{job.salary}</div>
-                              <div className="text-xs text-gray-500">Posted {daysAgo(job.postedAt)}</div>
-                            </div>
-                          </motion.div>
-                        ))}
+                            </motion.div>
+                          ))
+                        )}
                       </div>
                     </section>
                     
@@ -483,7 +504,7 @@ export default function CompanyDetailsPage() {
                         </div>
                         <div className="border-t border-gray-800 pt-4 flex justify-between">
                           <span className="text-gray-400">Open Positions</span>
-                          <span className="text-[#3b82f6] font-medium">{company.openPositions}</span>
+                          <span className="text-[#3b82f6] font-medium">{jobs.length || company.openPositions}</span>
                         </div>
                       </div>
                     </div>
@@ -534,7 +555,7 @@ export default function CompanyDetailsPage() {
               {activeTab === 'jobs' && (
                 <div className="space-y-6">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <h2 className="text-xl font-semibold text-white">All Open Positions ({jobPositions.length})</h2>
+                    <h2 className="text-xl font-semibold text-white">All Open Positions ({jobs.length || company.openPositions})</h2>
                     
                     {/* Job search and filter - simplified for demo */}
                     <div className="flex gap-3">
@@ -553,54 +574,93 @@ export default function CompanyDetailsPage() {
                   
                   {/* Job listings */}
                   <div className="space-y-4">
-                    {jobPositions.map(job => (
-                      <motion.div 
-                        key={job.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="p-5 bg-gray-900/50 border border-gray-800 rounded-lg hover:border-gray-700 transition-colors"
-                      >
-                        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-4">
-                          <div>
-                            <h3 className="text-lg font-medium text-white mb-1">{job.title}</h3>
-                            <div className="text-sm text-gray-400">{job.department}</div>
+                    {isLoadingJobs ? (
+                      <div className="flex items-center justify-center py-12">
+                        <div className="inline-block animate-spin h-8 w-8 border-4 border-[#3b82f6] border-t-transparent rounded-full mr-3"></div>
+                        <p className="text-gray-400">Loading job listings...</p>
+                      </div>
+                    ) : jobsError ? (
+                      <div className="p-8 bg-red-900/20 border border-red-800/30 rounded-lg text-center">
+                        <p className="text-red-200">{jobsError}</p>
+                        <button
+                          onClick={() => window.location.reload()}
+                          className="mt-4 px-4 py-2 bg-red-800/30 hover:bg-red-700/30 text-white rounded-md border border-red-700/30"
+                        >
+                          Try Again
+                        </button>
+                      </div>
+                    ) : jobs.length === 0 ? (
+                      <div className="p-8 bg-gray-800/30 border border-gray-700 rounded-lg text-center">
+                        <p className="text-gray-400 mb-4">No job listings available at the moment.</p>
+                        <p className="text-gray-500">Check back later for new opportunities.</p>
+                      </div>
+                    ) : (
+                      jobs.map(job => (
+                        <motion.div 
+                          key={job._id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="p-5 bg-gray-900/50 border border-gray-800 rounded-lg hover:border-gray-700 transition-colors"
+                        >
+                          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-4">
+                            <div>
+                              <h3 className="text-lg font-medium text-white mb-1">{job.title}</h3>
+                              <div className="text-sm text-gray-400">{getDepartmentFromTitle(job.title)}</div>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              <span className="inline-block px-2.5 py-1 bg-[#3b82f6]/20 text-[#3b82f6] text-xs rounded-md border border-[#3b82f6]/30">
+                                {job.jobType}
+                              </span>
+                              {job.applicationDeadline && (
+                                <span className="inline-block px-2.5 py-1 bg-gray-800 text-gray-300 text-xs rounded-md border border-gray-700">
+                                  Deadline: {formatDate(job.applicationDeadline)}
+                                </span>
+                              )}
+                            </div>
                           </div>
-                          <div className="flex flex-wrap gap-2">
-                            <span className="inline-block px-2.5 py-1 bg-[#3b82f6]/20 text-[#3b82f6] text-xs rounded-md border border-[#3b82f6]/30">
-                              {job.type}
-                            </span>
-                            <span className="inline-block px-2.5 py-1 bg-gray-800 text-gray-300 text-xs rounded-md border border-gray-700">
-                              {job.experience}
-                            </span>
+                          
+                          <div className="flex flex-wrap gap-y-2 text-sm text-gray-400 mb-4">
+                            <div className="flex items-center mr-6">
+                              <MapPin className="h-4 w-4 mr-1.5" />
+                              {job.location}
+                            </div>
+                            <div className="flex items-center mr-6">
+                              <Clock className="h-4 w-4 mr-1.5" />
+                              Posted {daysAgo(job.createdAt)}
+                            </div>
+                            <div className="flex items-center">
+                              <Zap className="h-4 w-4 mr-1.5 text-[#3b82f6]" />
+                              {job.salary}
+                            </div>
                           </div>
-                        </div>
-                        
-                        <div className="flex flex-wrap gap-y-2 text-sm text-gray-400 mb-4">
-                          <div className="flex items-center mr-6">
-                            <MapPin className="h-4 w-4 mr-1.5" />
-                            {job.location}
+                          
+                          <div className="text-gray-300 text-sm mb-4">
+                            <p>{job.description}</p>
                           </div>
-                          <div className="flex items-center mr-6">
-                            <Clock className="h-4 w-4 mr-1.5" />
-                            Posted {daysAgo(job.postedAt)}
+                          
+                          {job.requirements && job.requirements.length > 0 && (
+                            <div className="mb-4">
+                              <h4 className="text-white font-medium mb-2">Requirements:</h4>
+                              <ul className="list-disc list-inside pl-2 text-sm text-gray-400 space-y-1">
+                                {job.requirements.map((requirement, index) => (
+                                  <li key={index}>{requirement}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          
+                          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                            <div className="text-gray-400 text-xs">
+                              Job ID: {job._id}
+                            </div>
+                            <button className="px-4 py-2 bg-[#3b82f6] hover:bg-[#3b82f6]/90 text-white rounded-md whitespace-nowrap">
+                              Apply Now
+                            </button>
                           </div>
-                          <div className="flex items-center">
-                            <Zap className="h-4 w-4 mr-1.5 text-[#3b82f6]" />
-                            {job.salary}
-                          </div>
-                        </div>
-                        
-                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                          <div className="text-gray-300 text-sm">
-                            Join our team and work on cutting-edge {job.department.toLowerCase()} projects!
-                          </div>
-                          <button className="px-4 py-2 bg-[#3b82f6] hover:bg-[#3b82f6]/90 text-white rounded-md whitespace-nowrap">
-                            Apply Now
-                          </button>
-                        </div>
-                      </motion.div>
-                    ))}
+                        </motion.div>
+                      ))
+                    )}
                   </div>
                 </div>
               )}

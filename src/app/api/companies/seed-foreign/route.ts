@@ -176,11 +176,18 @@ export async function GET() {
     await connectDB();
     
     // Insert foreign companies without deleting existing ones
-    await Company.insertMany(foreignCompanies);
+    const result = await Company.insertMany(foreignCompanies);
+    
+    // Get all company IDs for reference
+    const companies = await Company.find({}, 'name _id');
     
     return NextResponse.json({
       message: "Database populated successfully with foreign companies!",
       count: foreignCompanies.length,
+      companies: companies,
+      note: "Use any of these company IDs when creating jobs",
+      jobCreationEndpoint: "/api/jobs (POST) or /api/companies/{companyId}/jobs (POST)",
+      sampleEndpoint: "/api/jobs/sample?companyId={companyId}"
     });
   } catch (error) {
     console.error("Error adding foreign companies:", error);
