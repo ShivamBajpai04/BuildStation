@@ -1127,7 +1127,7 @@ export function StandaloneHeroSection() {
                   animated
                   icon={<Zap className="h-4 w-4" />}
                 >
-                  Start Free Trial
+                  Search/Post Jobs
                 </AnimatedButton>
 
                 <AnimatedButton
