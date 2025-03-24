@@ -45,7 +45,7 @@ export default function CTV() {
                 grainOpacity={0.08} // Subtle grain on button
                 icon={<Zap className="h-5 w-5" />}
               >
-                Start Free Trial
+                Search/Post Jobs
               </AnimatedButton>
 
               <AnimatedButton
@@ -56,7 +56,7 @@ export default function CTV() {
                 icon={<ArrowRight className="h-5 w-5" />}
                 iconPosition="right"
               >
-                Book a Demo
+                See Demo
               </AnimatedButton>
             </div>
 
