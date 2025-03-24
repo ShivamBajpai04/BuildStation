@@ -59,9 +59,9 @@ export default function TeamPage() {
         github: "https://github.com/smresponsibilities",
         email: "shivammahajan.mail.com",
       },
-      funFact: "Can solve a Rubik&apos;s cube in under a minute",
+      funFact: "Early blockchain adopter since 2017",
       quote:
-        "AI isn&apos;t just about automation—it&apos;s about augmenting human potential.",
+        "Blockchain technology is revolutionizing how we think about trust and transparency in the job market.",
       department: "leadership",
       color: "from-blue-500 to-purple-500",
       emoji: "♟️",
@@ -76,16 +76,16 @@ export default function TeamPage() {
         github: "https://github.com/ShivamBajpai04",
         email: "shivambajpai04@gmail.com",
       },
-      funFact: "Builds custom mechanical keyboards as a hobby",
+      funFact: "Developed multiple successful DeFi protocols",
       quote:
-        "The best code is no code at all. The second best is code that's so clear it speaks for itself.",
+        "Smart contracts are the foundation of a truly decentralized and transparent job marketplace.",
       department: "technology",
       color: "from-green-500 to-[#3b82f6]",
       emoji: "🚀",
     },
     {
       name: "Shivanshu",
-      role: "CO & Co-Founder",
+      role: "COO & Co-Founder",
       bio: "",
       image: "/avatars/s.jpg",
       social: {
@@ -93,9 +93,9 @@ export default function TeamPage() {
         github: "https://github.com/Shivanshuk28",
         email: "2contactshivanshu@gmail.com",
       },
-      funFact: "Former competitive chess player",
+      funFact: "Led multiple Web3 product launches",
       quote:
-        "Great products don&apos;t just solve problems—they create possibilities.",
+        "NFT-powered job listings are transforming how companies and talent connect in the digital age.",
       department: "product",
       color: "from-orange-500 to-red-500",
       emoji: "✨",
@@ -151,9 +151,9 @@ export default function TeamPage() {
                 Our Team
               </h1>
               
-              <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
-                We&apos;re not just building AI—we&apos;re building the future of work. Meet
-                the diverse team of experts making it happen.
+              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                We're revolutionizing the job market with blockchain technology and NFT-powered listings. Meet
+                the innovators building the future of decentralized hiring.
               </p>
               
               <div className="flex flex-wrap gap-3 mb-8">
@@ -371,11 +371,11 @@ export default function TeamPage() {
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-6 text-white text-2xl font-bold shadow-md">
                 01
               </div>
-              <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">Innovation First</h3>
+              <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">Blockchain Innovation</h3>
               <p className="text-muted-foreground">
-                We push boundaries and challenge the status quo to create
-                solutions that weren&apos;t possible before. We embrace
-                experimentation and learn from both successes and failures.
+                We revolutionize the job market through cutting-edge blockchain technology,
+                creating a decentralized ecosystem that transforms how hiring works. Our
+                smart contracts ensure seamless, secure job transactions.
               </p>
             </motion.div>
 
@@ -396,11 +396,11 @@ export default function TeamPage() {
               <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-[#3b82f6] rounded-2xl flex items-center justify-center mb-6 text-white text-2xl font-bold shadow-md">
                 02
               </div>
-              <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-[#3b82f6]">Human-Centered</h3>
+              <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-[#3b82f6]">Decentralized Trust</h3>
               <p className="text-muted-foreground">
-                We build AI that enhances human capabilities rather than
-                replacing them, focusing on collaboration. Our technology exists
-                to empower people and make their lives better.
+                We build transparency and trust through decentralized verification.
+                Every job posting and credential is blockchain-verified, creating
+                an immutable record of career achievements and opportunities.
               </p>
             </motion.div>
 
@@ -421,11 +421,11 @@ export default function TeamPage() {
               <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mb-6 text-white text-2xl font-bold shadow-md">
                 03
               </div>
-              <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-red-500">Ethical AI</h3>
+              <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-red-500">Community-Driven</h3>
               <p className="text-muted-foreground">
-                We&apos;re committed to developing AI responsibly, with transparency
-                and fairness at the core of everything we do. We consider the
-                societal impact of our technology.
+                We empower our community through decentralized governance and
+                collective decision-making. Token holders shape the platform&apos;s
+                future, ensuring it serves everyone&apos;s interests.
               </p>
             </motion.div>
           </div>

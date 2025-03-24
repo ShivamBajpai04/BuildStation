@@ -3,7 +3,7 @@
 import { GrainyTexture } from "@/components/effects/grainy-texture";
 import { EnhancedSection } from "@/components/enhanced-layout";
 import { motion, useSpring, useMotionValue, useTransform } from "framer-motion";
-import { Award, Zap, BriefcaseIcon } from "lucide-react";
+import { Award, Zap, BriefcaseIcon, Sparkles } from "lucide-react";
 import { useRef, useState, useEffect, ReactNode } from "react";
 
 // Enhanced Floating animation component for stats cards
