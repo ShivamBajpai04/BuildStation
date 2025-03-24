@@ -144,7 +144,7 @@ export default function TeamPage() {
             >
               <div className="inline-flex items-center px-4 py-1.5 mb-6 text-xs md:text-sm font-medium rounded-full border border-primary/20 bg-primary/5 text-primary">
                 <Sparkles className="w-3.5 h-3.5 mr-2" />
-                Meet the minds behind BuildStation
+                Meet the minds behind BlockBlockJob
               </div>
               
               <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600 animate-text-shimmer">

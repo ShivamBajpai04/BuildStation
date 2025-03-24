@@ -188,7 +188,7 @@ function EnhancedVideoContainer() {
             </div>
             <div className="flex items-center mx-auto">
               <BriefcaseIcon className="h-3 w-3 text-[#c89d4a] mr-1.5" />
-              <div className="text-xs text-gray-400 font-mono">BuildStation Demo</div>
+              <div className="text-xs text-gray-400 font-mono">BlockBlockJob Demo</div>
             </div>
           </div>
         </div>
