@@ -174,7 +174,7 @@ function EnhancedVideoContainer() {
               controls
               poster="/placeholder.svg?height=600&width=800"
             >
-              <source src="/demo-placeholder.mp4" type="video/mp4" />
+              <source src="/BBJ.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}
